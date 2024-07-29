@@ -1,0 +1,6 @@
+# ninja log v5
+1	602	7439836311883426	CMakeFiles/drone-game.dir/drone-game.cpp.obj	fabb7d98128afef3
+605	1398	7439836319558355	drone-game.exe	2312da65a1a6bcb7
+31	657	7439842898414247	CMakeFiles/drone-game.dir/source/GameObject.cpp.obj	d16844a8ac39050
+1	858	7439842900445207	CMakeFiles/drone-game.dir/source/main.cpp.obj	d80eb5a5df58ab2b
+859	1322	7439842904292379	drone-game.exe	d82bf8c5aadad01e

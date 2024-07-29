@@ -6,6 +6,6 @@ cmake_minimum_required (VERSION 3.8)
 project ("drone-game")
 
 # Add source to this project's executable.
-add_executable (drone-game "drone-game.cpp" "drone-game.h")
+add_executable (drone-game "source/main.cpp" "headers/main.h" "headers/GameObject.h" "source/GameObject.cpp" "headers/DataTypes.h")
 
 # TODO: Add tests and install targets if needed.
