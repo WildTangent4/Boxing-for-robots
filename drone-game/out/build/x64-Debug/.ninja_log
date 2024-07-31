@@ -1,6 +1,9 @@
 # ninja log v5
-1	602	7439836311883426	CMakeFiles/drone-game.dir/drone-game.cpp.obj	fabb7d98128afef3
-605	1398	7439836319558355	drone-game.exe	2312da65a1a6bcb7
-31	657	7439842898414247	CMakeFiles/drone-game.dir/source/GameObject.cpp.obj	d16844a8ac39050
-1	858	7439842900445207	CMakeFiles/drone-game.dir/source/main.cpp.obj	d80eb5a5df58ab2b
-859	1322	7439842904292379	drone-game.exe	d82bf8c5aadad01e
+21	472	7441331182855710	CMakeFiles/drone-game.dir/source/GameObject.cpp.obj	9e3661de83ee68dc
+1	782	7441331185962410	CMakeFiles/drone-game.dir/source/main.cpp.obj	f9e4c9ae3d402c16
+782	3252	7441331190136898	drone-game.exe	1eef9807b57a2e08
+10	1987	7441331404968152	build.ninja	66e5ca789b479874
+2	867	7441331661488010	CMakeFiles/drone-game.dir/source/main.cpp.obj	f9e4c9ae3d402c16
+876	3957	7441331666178633	drone-game.exe	1eef9807b57a2e08
+1	827	7441332577586169	CMakeFiles/drone-game.dir/source/main.cpp.obj	f9e4c9ae3d402c16
+828	4566	7441332583352874	drone-game.exe	1eef9807b57a2e08
