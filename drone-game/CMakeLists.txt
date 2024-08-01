@@ -9,7 +9,7 @@ include_directories(${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/include)
 find_package(raylib CONFIG REQUIRED)
 
 # Add source to this project's executable.
-add_executable (drone-game "source/main.cpp" "headers/main.h" "headers/GameObject.h" "source/GameObject.cpp" "headers/DataTypes.h")
+add_executable (drone-game "source/main.cpp" "headers/main.h" "headers/GameObject.h" "source/GameObject.cpp" "headers/DataTypes.h" "headers/PhysicsManager.h" "headers/Input.h")
 
 # TODO: Add tests and install targets if needed.
 target_link_libraries("drone-game" PRIVATE raylib)

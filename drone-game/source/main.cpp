@@ -2,43 +2,33 @@
 //
 
 #include "../headers/main.h"
+#include "../headers/PhysicsManager.h"
 #include <raylib.h>
+
 
 using namespace std;
 
 int main()
 {
+    bool enableDrawing = true; //temporary switch to turn off raylib for debugging underlying physics
 
-// TEMPORARY TEST CODE, SOURCE: https://www.raylib.com/examples.html
-//
-    // Initialization
-//--------------------------------------------------------------------------------------
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    if (enableDrawing) { InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window"); }
+    if (enableDrawing) { SetTargetFPS(60);}
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
+    //simulate physics in seperate thread
+    PhysicsManager phys = PhysicsManager();
+    phys.simulate();
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+
+    while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
-
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
-
         ClearBackground(RAYWHITE);
-
         DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
