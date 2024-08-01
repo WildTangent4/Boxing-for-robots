@@ -5,23 +5,50 @@
 #include <vector>
 #include "GameObject.h"
 class PhysicsManager {
-	bool physicsPaused = false;
+	//note: using atomic means custom move, copy and delete constructors need to be created
+	std::atomic<bool> physicsPaused = false;
+	std::atomic<bool> gameIsRunning = true;
 	std::vector<GameObject> Objects;
 
 	void physicsLoop() {
-		printf("hello world");
+		while (gameIsRunning) {
+			if (!physicsPaused) {
+				runTickForAllObjects();
+			}
+		}
+	}
+
+	void runTickForAllObjects() {
+		for each (GameObject x in Objects)//NOTE TO SELF CHECK IF THIS IS BY REFERENCE
+		{
+			applyTick(x);
+		}
+	}
+
+	void applyTick(GameObject obj) {
+		printf("applying physics ticks to objects IS NOT IMPLEMENTED");
 	}
 
 public:
-	PhysicsManager() {
-		//temporary constructor to ensure that error is not caused by uninitialised vector
-		GameObject testObj = GameObject();
-		Objects.push_back(testObj);
-	}
+
+	PhysicsManager() {}
 
 	void simulate() {
-		std::thread physicsThread = std::thread(&PhysicsManager::physicsLoop,this);//,std::ref(physicsPaused),std::ref(Objects));
-		physicsThread.join();//rejoins thread once it completes execution (shouldnt happen while game is running)
-	
+		std::thread physicsThread = std::thread(&PhysicsManager::physicsLoop,this);
+		physicsThread.detach();
 	}
+
+	void endSimulation() {
+		physicsPaused = true;
+		gameIsRunning = false;
+		Objects.clear();
+	}
+
+	~PhysicsManager() {
+		endSimulation();
+	}
+
+	PhysicsManager(const PhysicsManager&) = delete;
+	PhysicsManager& operator=(const PhysicsManager&) = delete;
+
 };

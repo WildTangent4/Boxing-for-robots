@@ -19,7 +19,7 @@ int main()
     if (enableDrawing) { SetTargetFPS(60);}
 
     //simulate physics in seperate thread
-    PhysicsManager phys = PhysicsManager();
+    PhysicsManager phys;
     phys.simulate();
     // Main game loop
 
@@ -32,9 +32,10 @@ int main()
     }
 
     // De-Initialization
-    //--------------------------------------------------------------------------------------
+    phys.endSimulation();
+    printf("simulation ended");
     CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+    
 
     return 0;
 }
