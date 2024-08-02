@@ -31,7 +31,7 @@ public:
 	/// </summary>
 	void simulate();
 	/// <summary>
-	/// stop hysicis simulation NOTE: currently deletes all objects
+	/// stop physicis simulation NOTE: currently deletes all objects
 	/// </summary>
 	void endSimulation();
 	~PhysicsManager();
