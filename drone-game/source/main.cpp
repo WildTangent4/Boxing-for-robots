@@ -18,6 +18,10 @@ int main()
     if (enableDrawing) { InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window"); }
     if (enableDrawing) { SetTargetFPS(60);}
 
+
+    //test creating game object
+
+
     //simulate physics in seperate thread
     PhysicsManager phys;
     phys.simulate();
