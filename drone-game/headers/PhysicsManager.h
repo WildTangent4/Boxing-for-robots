@@ -19,7 +19,7 @@ class PhysicsManager {
 	}
 
 	void runTickForAllObjects() {
-		for each (GameObject x in Objects)//NOTE TO SELF CHECK IF THIS IS BY REFERENCE
+		for each (GameObject x in Objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
 		{
 			applyTick(x);
 		}
