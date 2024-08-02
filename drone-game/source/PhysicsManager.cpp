@@ -8,7 +8,7 @@ void PhysicsManager::physicsLoop() {
 }
 
 void PhysicsManager::runTickForAllObjects() {
-	for each (GameObject x in Objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
+	for each (GameObject x in objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
 	{
 		applyTick(x);
 	}
@@ -26,7 +26,7 @@ void PhysicsManager::simulate() {
 void PhysicsManager::endSimulation() {
 	physicsPaused = true;
 	gameIsRunning = false;
-	Objects.clear();
+	objects.clear();
 }
 
 PhysicsManager::PhysicsManager() {}
