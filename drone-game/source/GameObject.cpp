@@ -15,4 +15,5 @@ void GameObject::applyForces() {
 }
 GameObject::GameObject(position pos)
 {
+	int i = 0;
 }

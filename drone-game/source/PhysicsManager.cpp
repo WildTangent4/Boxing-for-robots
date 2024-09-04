@@ -34,6 +34,9 @@ PhysicsManager::PhysicsManager() {}
 PhysicsManager::~PhysicsManager() {
 	endSimulation();
 }
+void PhysicsManager::addObject(GameObject* obj)
+{
+}
 /*
 PhysicsManager::addObject(GameObject obj) {
 	objects.push_back(obj);
