@@ -13,6 +13,6 @@ void GameObject::applyForces() {
 
 		// if true move to edge of object
 }
-GameObject::GameObject(){//position startPosition,PhysicsManager& physicsSystem) {
-	//physicsSystem.addObject(this v);
+GameObject::GameObject(position pos)
+{
 }

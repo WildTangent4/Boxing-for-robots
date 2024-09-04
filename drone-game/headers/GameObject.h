@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 
 class GameObject{
 public:
@@ -17,6 +18,6 @@ public:
 		int y = 0;
 	};
 	void applyForces();
-	GameObject();//(position startPosition, PhysicsManager& physicsSystem);
-	
+	GameObject(position pos);//(position startPosition, PhysicsManager& physicsSystem);
 };
+#endif // !GAMEOBJECT_H
