@@ -1,7 +1,6 @@
 ﻿// drone-game.cpp : Defines the entry point for the application.
 //
 #pragma comment (lib, "raylib.lib")
-#include "../headers/main.h"
 #include "../headers/PhysicsManager.h"
 #include "../headers/RenderManager.h"
 #include <raylib.h>
