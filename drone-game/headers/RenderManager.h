@@ -1,23 +1,24 @@
 #pragma once
 #include "GameObject.h"
 #include <vector>
+#include "raylib.h"
 class RenderManager
 {
 public:
-	RenderManager();
+	RenderManager(Camera3D camera);
 	~RenderManager();
-	
-	void addObject(GameObject* obj);
+	/// <summary>
+	/// add an object to the list of objects to be rendered
+	/// </summary>
+	/// <param name="obj"></param>
+	void addObject(GameObject& obj);
+	/// <summary>
+	/// renders all objects once (needs to be run in a loop)
+	/// </summary>
+	void render();
 private:
-	std::vector<GameObject*> objects;
+	Camera3D viewport;
+	std::vector<GameObject> objects;
 
 };
-
-RenderManager::RenderManager()
-{
-}
-
-RenderManager::~RenderManager()
-{
-}
 

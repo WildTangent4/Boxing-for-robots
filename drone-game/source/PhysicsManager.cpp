@@ -8,14 +8,17 @@ void PhysicsManager::physicsLoop() {
 }
 
 void PhysicsManager::runTickForAllObjects() {
-	for each (GameObject x in objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
+	for (GameObject& x : objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
 	{
 		applyTick(x);
 	}
 }
 
-void PhysicsManager::applyTick(GameObject obj) {
-	printf("applying physics ticks to objects IS NOT IMPLEMENTED");
+void PhysicsManager::applyTick(GameObject& obj) {
+	Vector3 start_pos = obj.pos;
+	obj.applyForces();
+	Vector3 end_pos = obj.pos;
+	//TODO: check if line between start and end intersects with any other objects and halt the movement if so
 }
 
 void PhysicsManager::simulate() {
@@ -34,9 +37,9 @@ PhysicsManager::PhysicsManager() {}
 PhysicsManager::~PhysicsManager() {
 	endSimulation();
 }
-void PhysicsManager::addObject(GameObject* obj)
+void PhysicsManager::addObject(GameObject& obj)
 {
-	this->objects.push_back(obj)
+	this->objects.push_back(obj);
 }
 /*
 PhysicsManager::addObject(GameObject obj) {

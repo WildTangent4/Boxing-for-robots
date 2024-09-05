@@ -13,7 +13,8 @@ void GameObject::applyForces() {
 
 		// if true move to edge of object
 }
-GameObject::GameObject(position pos)
+GameObject::GameObject(Vector3 pos, std::string texture_path)
 {
-	int i = 0;
+	this->pos = pos;
+	this->texture = LoadTexture(texture_path.c_str());
 }
