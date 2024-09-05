@@ -44,8 +44,3 @@ void PhysicsManager::addObject(GameObject* obj)
 {
 	this->objects.push_back(obj);
 }
-/*
-PhysicsManager::addObject(GameObject obj) {
-	objects.push_back(obj);
-}
-*/

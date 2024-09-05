@@ -12,16 +12,14 @@ int main()
 {
     bool enableDrawing = true; //temporary switch to allow turning off raylib for debugging underlying physics
 
+    //set up screen settings
     const int screenWidth = 800;
     const int screenHeight = 450;
 
     if (enableDrawing) { InitWindow(screenWidth, screenHeight, "GAME"); }
     if (enableDrawing) { SetTargetFPS(60);}
 
-
-    //test creating game object
-
-    //simulate physics in seperate thread
+    //configure camera and rendering
     Camera3D cam = Camera3D{ 0 };
     cam.position = { 5, 2, 4 };
     cam.target = { 0,0,0 };
@@ -29,6 +27,8 @@ int main()
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
     RenderManager rend = RenderManager(&cam);
+    
+    //simulate physics in seperate thread
     PhysicsManager phys;
 
 
