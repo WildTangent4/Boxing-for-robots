@@ -15,7 +15,7 @@ int main()
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    if (enableDrawing) { InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window"); }
+    if (enableDrawing) { InitWindow(screenWidth, screenHeight, "GAME"); }
     if (enableDrawing) { SetTargetFPS(60);}
 
 
