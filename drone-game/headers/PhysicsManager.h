@@ -41,5 +41,5 @@ public:
 	~PhysicsManager();
 	PhysicsManager(const PhysicsManager&) = delete;
 	PhysicsManager& operator=(const PhysicsManager& manager) = delete;
-	void addObject(GameObject&  obj);
+	void addObject(GameObject*  obj);
 };

@@ -28,19 +28,19 @@ int main()
     cam.up = { 0,1,0 };
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
-    RenderManager rend = RenderManager(cam);
+    RenderManager rend = RenderManager(&cam);
     PhysicsManager phys;
-    ObjectFactory objectFactory;
+
 
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
     GameObject test_object = GameObject(test_pos, "../../../resources/1.png");
-    phys.addObject(test_object);
+    phys.addObject(&test_object);
     rend.addObject(test_object);
+    test_object.force = { 0.0,0.0,1 };
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
-        test_object.velocity = { 0.0,0.0,1 };
         cam.target = test_object.pos;
         BeginDrawing();
         BeginMode3D(cam);

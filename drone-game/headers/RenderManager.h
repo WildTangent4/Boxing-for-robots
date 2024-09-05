@@ -5,7 +5,7 @@
 class RenderManager
 {
 public:
-	RenderManager(Camera3D camera);
+	RenderManager(Camera3D* camera);
 	~RenderManager();
 	/// <summary>
 	/// add an object to the list of objects to be rendered
@@ -17,7 +17,7 @@ public:
 	/// </summary>
 	void render();
 private:
-	Camera3D viewport;
+	Camera3D* viewport;
 	std::vector<GameObject*> objects;
 
 };

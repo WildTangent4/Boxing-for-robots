@@ -40,9 +40,9 @@ PhysicsManager::PhysicsManager() {}
 PhysicsManager::~PhysicsManager() {
 	endSimulation();
 }
-void PhysicsManager::addObject(GameObject& obj)
+void PhysicsManager::addObject(GameObject* obj)
 {
-	this->objects.push_back(&obj);
+	this->objects.push_back(obj);
 }
 /*
 PhysicsManager::addObject(GameObject obj) {
