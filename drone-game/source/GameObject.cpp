@@ -6,11 +6,10 @@ void GameObject::applyForces(double delta_time) {
 	Vector3 new_velocity= Vector3Add(this->velocity, this->force);
 	this->velocity = new_velocity;
 	double time_scale = delta_time / 1000;
-	printf("x:%f y:%f z:%f\n", new_velocity.x, new_velocity.y, new_velocity.z);
 	Vector3 scaled_velocity =  Vector3Scale(Vector3Add(this->velocity,this->force), time_scale);
 
 	//reset force for next tick
-	this->force = { 0,0,0 };//TODO: this resets velocity for some reason, make sure it doesnt do that
+	this->force = { 0,0,0 };
 
 	this->pos.x = this->pos.x + scaled_velocity.x;
 	this->pos.y = this->pos.y + scaled_velocity.y;

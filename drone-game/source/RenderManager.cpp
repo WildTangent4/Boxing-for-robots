@@ -12,7 +12,6 @@ void RenderManager::render()
 {
 	
 	for (const GameObject* obj : objects) {
-		printf("X:%f  Y:%f  Z:%f\n", obj->pos.x, obj->pos.y, obj->pos.z);
 		DrawBillboard(*(this->viewport),
 			obj->texture,
 			obj->pos,
