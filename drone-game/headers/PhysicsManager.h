@@ -8,7 +8,7 @@ class PhysicsManager {
 	//note: using atomic means custom move, copy and delete constructors need to be created
 	std::atomic<bool> physicsPaused = false;
 	std::atomic<bool> gameIsRunning = true;
-	std::vector<GameObject> objects;
+	std::vector<GameObject*> objects;
 
 	/// <summary>
 	/// runs physics tick in a loop
