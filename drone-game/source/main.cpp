@@ -22,7 +22,6 @@ int main()
     //test creating game object
 
     //simulate physics in seperate thread
-    PhysicsManager phys;
     Camera3D cam = Camera3D{ 0 };
     cam.position = { 5, 2, 4 };
     cam.target = { 0,0,0 };
@@ -30,6 +29,9 @@ int main()
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
     RenderManager rend = RenderManager(cam);
+    PhysicsManager phys;
+    ObjectFactory objectFactory;
+
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
@@ -38,6 +40,8 @@ int main()
     rend.addObject(test_object);
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
+        test_object.velocity = { 0.0,0.0,1 };
+        cam.target = test_object.pos;
         BeginDrawing();
         BeginMode3D(cam);
         DrawGrid(10, 1);

@@ -18,7 +18,7 @@ public:
 	void render();
 private:
 	Camera3D viewport;
-	std::vector<GameObject> objects;
+	std::vector<GameObject*> objects;
 
 };
 

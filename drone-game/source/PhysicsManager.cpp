@@ -8,16 +8,19 @@ void PhysicsManager::physicsLoop() {
 }
 
 void PhysicsManager::runTickForAllObjects() {
-	for (GameObject& x : objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
+	this->previous_tick_end = std::chrono::high_resolution_clock::now();
+	double delta = std::chrono::duration<double,std::milli>(this->previous_tick_end-this->previous_tick_start).count();
+	this->previous_tick_start = std::chrono::high_resolution_clock::now();
+	for (GameObject* x : this->objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
 	{
-		applyTick(x);
+		applyTick(x,delta);
 	}
 }
 
-void PhysicsManager::applyTick(GameObject& obj) {
-	Vector3 start_pos = obj.pos;
-	obj.applyForces();
-	Vector3 end_pos = obj.pos;
+void PhysicsManager::applyTick(GameObject* obj,double delta) {
+	Vector3 start_pos = obj->pos;
+	obj->applyForces(delta);
+	Vector3 end_pos = obj->pos;
 	//TODO: check if line between start and end intersects with any other objects and halt the movement if so
 }
 
@@ -39,7 +42,7 @@ PhysicsManager::~PhysicsManager() {
 }
 void PhysicsManager::addObject(GameObject& obj)
 {
-	this->objects.push_back(obj);
+	this->objects.push_back(&obj);
 }
 /*
 PhysicsManager::addObject(GameObject obj) {
