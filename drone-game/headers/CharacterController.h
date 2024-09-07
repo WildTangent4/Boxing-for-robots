@@ -2,10 +2,11 @@
 #include "GameObject.h"
 class CharacterController {
 public:
-	CharacterController(GameObject* player);
+	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick();
 private:
 	GameObject* player;
+	Camera3D* camera;
 	double coyoteTime = 0;
 	/// <summary>
 	/// takes all currently pressed inputs and applies them to this controllers character module
@@ -15,4 +16,8 @@ private:
 	/// applies all queued jump inputs that are less than coyote time old
 	/// </summary>
 	void apply_queued_inputs();
+
+	void applyCameraInputs();
+	void applyMoveInputs();
+	void applyJumpInputs();
 };

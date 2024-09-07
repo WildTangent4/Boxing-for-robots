@@ -1,8 +1,9 @@
 #include "../headers/CharacterController.h"
 
-CharacterController::CharacterController(GameObject* player)
+CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 {
 	this->player = player;
+	this->camera = cam;
 }
 
 void CharacterController::applyGameTick()
@@ -13,8 +14,23 @@ void CharacterController::applyGameTick()
 
 void CharacterController::apply_inputs()
 {
+	applyMoveInputs();
+	applyCameraInputs();
+	applyJumpInputs();
 }
 
 void CharacterController::apply_queued_inputs()
+{
+}
+
+void CharacterController::applyCameraInputs()
+{
+}
+
+void CharacterController::applyMoveInputs()
+{
+}
+
+void CharacterController::applyJumpInputs()
 {
 }
