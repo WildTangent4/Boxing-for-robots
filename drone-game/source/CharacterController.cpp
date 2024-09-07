@@ -25,6 +25,7 @@ void CharacterController::apply_queued_inputs()
 
 void CharacterController::applyCameraInputs()
 {
+	UpdateCamera(this->camera, CAMERA_FIRST_PERSON);
 }
 
 void CharacterController::applyMoveInputs()

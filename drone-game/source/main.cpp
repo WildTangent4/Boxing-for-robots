@@ -28,7 +28,8 @@ int main()
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
     RenderManager rend = RenderManager(&cam);
-    
+    GameObject player = GameObject({0,0,0},"none");//todo: create character class that handles rendering differently
+    CharacterController playerController = CharacterController(&player,&cam);
     //simulate physics in seperate thread
     PhysicsManager phys;
 
@@ -42,7 +43,8 @@ int main()
     test_object.force = { 0.0,0.0,1 };
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
-        cam.target = test_object.pos;
+        //cam.target = test_object.pos;
+        playerController.applyGameTick();
         BeginDrawing();
         BeginMode3D(cam);
         DrawGrid(10, 1);
