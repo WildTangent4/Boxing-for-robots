@@ -14,7 +14,7 @@ void CharacterController::applyGameTick()
 
 void CharacterController::apply_inputs()
 {
-	applyMoveInputs();
+	applyMoveInputsToPlayerObject();
 	applyCameraInputs();
 	applyJumpInputs();
 }
@@ -28,8 +28,12 @@ void CharacterController::applyCameraInputs()
 	UpdateCamera(this->camera, CAMERA_FIRST_PERSON);
 }
 
-void CharacterController::applyMoveInputs()
+void CharacterController::applyMoveInputsToPlayerObject()
 {
+	//double currentCameraRotation = this->camera.
+	if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_A) || IsKeyPressed(KEY_S) || IsKeyPressed(KEY_D)) {
+		this->player->pos = { this->camera->position.x, this->camera->position.y - 2,this->camera->position.z }; //update player position (accounting for player height)
+	}
 }
 
 void CharacterController::applyJumpInputs()

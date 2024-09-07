@@ -18,6 +18,6 @@ private:
 	void apply_queued_inputs();
 
 	void applyCameraInputs();
-	void applyMoveInputs();
+	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();
 };
