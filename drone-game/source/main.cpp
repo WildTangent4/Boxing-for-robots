@@ -3,6 +3,7 @@
 #pragma comment (lib, "raylib.lib")
 #include "../headers/PhysicsManager.h"
 #include "../headers/RenderManager.h"
+#include "../headers/CharacterController.h"
 #include <raylib.h>
 #include <iostream>
 
