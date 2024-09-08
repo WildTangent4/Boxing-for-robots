@@ -10,7 +10,7 @@ public:
 	int direction = 0;
 	
 	/// <summary>
-	/// warning force is not fully implemented right now
+	/// warning force is not fully implemented right now, apply velocity directly instead
 	/// </summary>
 	Vector3 force = { 0,0,0 };
 	Vector3 pos = { 0,0,0 };

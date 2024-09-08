@@ -14,8 +14,8 @@ void CharacterController::applyGameTick()
 
 void CharacterController::applyInputs()
 {
-	
 	applyMoveInputsToPlayerObject();
+	applyAttackInputs();
 	applyCameraInputs();
 	applyJumpInputs();
 }
@@ -26,6 +26,14 @@ void CharacterController::applyQueuedInputs()
 
 void CharacterController::applyAttackInputs()
 {
+	//TODO:check that x time has passed since last attack to avoid spam
+	if (IsKeyPressed(MOUSE_BUTTON_LEFT)) {
+		//get array of all objects
+
+		//filter all objects to only objects that are within the correct distance
+
+		//filter to only object within the hurt box (2,4 rectangle on ground in front of player)
+	}
 }
 
 void CharacterController::applyCameraInputs()

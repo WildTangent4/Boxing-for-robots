@@ -43,6 +43,7 @@ int main()
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
         //cam.target = test_object.pos;
+        
         playerController.applyGameTick();
         BeginDrawing();
         BeginMode3D(cam);
