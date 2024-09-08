@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include <rcamera.h>
 class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);

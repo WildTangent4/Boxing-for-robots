@@ -25,7 +25,14 @@ void CharacterController::apply_queued_inputs()
 
 void CharacterController::applyCameraInputs()
 {
-	UpdateCamera(this->camera, CAMERA_FIRST_PERSON);
+	//rotate camera base on mouse
+	this->camera;
+	//move camera based on WASD
+	double camera_move_speed = 0.5;//default 0.5
+	if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
+	if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
+	if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);
+	if (IsKeyDown(KEY_D)) CameraMoveRight(this->camera, camera_move_speed, true);
 }
 
 void CharacterController::applyMoveInputsToPlayerObject()
