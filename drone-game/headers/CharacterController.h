@@ -25,4 +25,12 @@ private:
 	void applyCameraInputs();
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();
+	
+	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
+	std::vector<GameObject*> getTargetableObjects(std::vector<GameObject*> objects, float range);
+
+	bool isInView(GameObject*);
+
+	//rotates point about origin
+	Vector2 applyRotation(float angle, Vector2 point);
 };
