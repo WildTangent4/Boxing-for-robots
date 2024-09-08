@@ -12,12 +12,12 @@ private:
 	/// <summary>
 	/// takes all currently pressed inputs and applies them to this controllers character module
 	/// </summary>
-	void apply_inputs();
+	void applyInputs();
 	/// <summary>
 	/// applies all queued jump inputs that are less than coyote time old
 	/// </summary>
-	void apply_queued_inputs();
-
+	void applyQueuedInputs();
+	void applyAttackInputs();
 	void applyCameraInputs();
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();

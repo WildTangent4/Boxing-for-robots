@@ -8,18 +8,23 @@ CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 
 void CharacterController::applyGameTick()
 {
-	apply_inputs();
-	apply_queued_inputs();
+	applyInputs();
+	applyQueuedInputs();
 }
 
-void CharacterController::apply_inputs()
+void CharacterController::applyInputs()
 {
+	
 	applyMoveInputsToPlayerObject();
 	applyCameraInputs();
 	applyJumpInputs();
 }
 
-void CharacterController::apply_queued_inputs()
+void CharacterController::applyQueuedInputs()
+{
+}
+
+void CharacterController::applyAttackInputs()
 {
 }
 
