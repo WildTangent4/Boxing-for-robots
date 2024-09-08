@@ -49,7 +49,7 @@ void CharacterController::applyCameraInputs()
 void CharacterController::applyMoveInputsToPlayerObject()
 {
 	//double currentCameraRotation = this->camera.
-	if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_A) || IsKeyPressed(KEY_S) || IsKeyPressed(KEY_D)) {
+	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_A) || IsKeyDown(KEY_S) || IsKeyDown(KEY_D)) {
 		this->player->pos = { this->camera->position.x, this->camera->position.y - 2,this->camera->position.z }; //update player position (accounting for player height)
 	}
 }
