@@ -26,7 +26,11 @@ void CharacterController::apply_queued_inputs()
 void CharacterController::applyCameraInputs()
 {
 	//rotate camera base on mouse
-	this->camera;
+	float mouse_sensitivity = 0.003f;
+	Vector2 mousePositionDelta = GetMouseDelta();
+	CameraYaw(this->camera, -mousePositionDelta.x * mouse_sensitivity, false);
+	CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
+
 	//move camera based on WASD
 	double camera_move_speed = 0.5;//default 0.5
 	if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
