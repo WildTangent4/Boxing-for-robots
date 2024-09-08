@@ -25,18 +25,25 @@ void CharacterController::apply_queued_inputs()
 
 void CharacterController::applyCameraInputs()
 {
-	//rotate camera base on mouse
-	float mouse_sensitivity = 0.003f;
-	Vector2 mousePositionDelta = GetMouseDelta();
-	CameraYaw(this->camera, -mousePositionDelta.x * mouse_sensitivity, false);
-	CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
+	if (IsWindowFocused()) {
+		HideCursor();
+		//rotate camera base on mouse
+		float mouse_sensitivity = 0.003f;
+		Vector2 mousePositionDelta = GetMouseDelta();
+		SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
+		CameraYaw(this->camera, -mousePositionDelta.x * mouse_sensitivity, false);
+		CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
 
-	//move camera based on WASD
-	double camera_move_speed = 0.5;//default 0.5
-	if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
-	if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
-	if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);
-	if (IsKeyDown(KEY_D)) CameraMoveRight(this->camera, camera_move_speed, true);
+		//move camera based on WASD
+		double camera_move_speed = 0.5;//default 0.5
+		if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
+		if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
+		if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);
+		if (IsKeyDown(KEY_D)) CameraMoveRight(this->camera, camera_move_speed, true);
+	}
+	else {
+		ShowCursor();
+	}
 }
 
 void CharacterController::applyMoveInputsToPlayerObject()
