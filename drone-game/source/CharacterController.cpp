@@ -6,16 +6,16 @@ CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 	this->camera = cam;
 }
 
-void CharacterController::applyGameTick()
+void CharacterController::applyGameTick(std::vector<GameObject*> objects)
 {
-	applyInputs();
+	applyInputs(objects);
 	applyQueuedInputs();
 }
 
-void CharacterController::applyInputs()
+void CharacterController::applyInputs(std::vector<GameObject*> objects)
 {
 	applyMoveInputsToPlayerObject();
-	applyAttackInputs();
+	applyAttackInputs(objects);
 	applyCameraInputs();
 	applyJumpInputs();
 }
@@ -24,14 +24,18 @@ void CharacterController::applyQueuedInputs()
 {
 }
 
-void CharacterController::applyAttackInputs()
+void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
 	//TODO:check that x time has passed since last attack to avoid spam
-	if (IsKeyPressed(MOUSE_BUTTON_LEFT)) {
-		//get array of all objects
-
+	if (IsKeyPressed(KEY_Q)) {
 		//filter all objects to only objects that are within the correct distance
+		//O(n)
 
+		std::vector<GameObject*> nearObjects;
+		Vector3 playerPos = this->player->pos;
+		printf("detected %I64u objects\n", objects.size());
+		std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < 3; });//TODO make range specific to equipped weapon
+		printf("detected %I64u obejcts in attack range\n", nearObjects.size());
 		//filter to only object within the hurt box (2,4 rectangle on ground in front of player)
 	}
 }
@@ -48,7 +52,7 @@ void CharacterController::applyCameraInputs()
 		CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
 
 		//move camera based on WASD
-		double camera_move_speed = 0.5;//default 0.5
+		float camera_move_speed = 0.5;//default 0.5
 		if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
 		if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
 		if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);

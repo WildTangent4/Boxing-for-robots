@@ -44,3 +44,8 @@ void PhysicsManager::addObject(GameObject* obj)
 {
 	this->objects.push_back(obj);
 }
+
+std::vector<GameObject*> PhysicsManager::getObjects()
+{
+	return this->objects;
+}

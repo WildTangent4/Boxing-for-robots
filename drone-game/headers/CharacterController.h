@@ -1,10 +1,14 @@
 #pragma once
 #include "GameObject.h"
 #include <rcamera.h>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <raymath.h>
 class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);
-	void applyGameTick();
+	void applyGameTick(std::vector<GameObject*> objects);
 private:
 	GameObject* player;
 	Camera3D* camera;
@@ -12,12 +16,12 @@ private:
 	/// <summary>
 	/// takes all currently pressed inputs and applies them to this controllers character module
 	/// </summary>
-	void applyInputs();
+	void applyInputs(std::vector<GameObject*> objects);
 	/// <summary>
 	/// applies all queued jump inputs that are less than coyote time old
 	/// </summary>
 	void applyQueuedInputs();
-	void applyAttackInputs();
+	void applyAttackInputs(std::vector<GameObject*> objects);
 	void applyCameraInputs();
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();

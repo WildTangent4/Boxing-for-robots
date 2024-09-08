@@ -42,4 +42,5 @@ public:
 	PhysicsManager(const PhysicsManager&) = delete;
 	PhysicsManager& operator=(const PhysicsManager& manager) = delete;
 	void addObject(GameObject*  obj);
+	std::vector<GameObject*> getObjects();
 };

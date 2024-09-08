@@ -44,7 +44,7 @@ int main()
     {
         //cam.target = test_object.pos;
         
-        playerController.applyGameTick();
+        playerController.applyGameTick(phys.getObjects());
         BeginDrawing();
         BeginMode3D(cam);
         DrawGrid(10, 1);
