@@ -29,8 +29,8 @@ private:
 	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
 	std::vector<GameObject*> getTargetableObjects(std::vector<GameObject*> objects, float range);
 
-	bool isInView(GameObject*);
+	static bool isInView(GameObject* object, GameObject* player, Camera3D* camera);
 
 	//rotates point about origin
-	Vector2 applyRotation(float angle, Vector2 point);
+	static Vector2 applyRotation(float angle, Vector2 point);
 };

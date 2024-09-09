@@ -28,8 +28,8 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
 	//TODO:check that x time has passed since last attack to avoid spam
 	if (IsKeyPressed(KEY_Q)) {
-		std::vector<GameObject*> near_enemies = getNearObjects(objects, 2);//change to attackrange
-		isInView(this->player);
+		//std::vector<GameObject*> near_enemies = getNearObjects(objects, 2);//change to attackrange
+		getTargetableObjects(objects,5);
 		//filter all objects to only objects that are within the correct distance
 		//O(n)
 
@@ -88,23 +88,26 @@ std::vector<GameObject*> CharacterController::getTargetableObjects(std::vector<G
 	std::vector<GameObject*> nearObjects;
 	Vector3 playerPos = this->player->pos;
 	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos, range](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
-	printf("detected %I64u obejcts in range\n", nearObjects.size());
+	printf("detected %I64u objects in range\n", nearObjects.size());
 
 	std::vector<GameObject*> targetedObjects;
 	printf("copying \n");
-	std::copy_if(std::begin(nearObjects), std::end(nearObjects), std::back_inserter(targetedObjects), [this](GameObject* obj) {return isInView(obj); });
-	printf("detected %I64u obejcts in target box\n", targetedObjects.size());
+
+	GameObject* player = this->player;
+	Camera3D* camera = this->camera;
+	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(targetedObjects), [player,camera](GameObject* obj) {return isInView(obj,player,camera); });
+	printf("detected %I64u objects in target box\n", targetedObjects.size());
 	
 	return nearObjects;
 }
 
-bool CharacterController::isInView(GameObject* object)
+bool CharacterController::isInView(GameObject* object, GameObject* player, Camera3D* camera)
 {
 	printf("running isInView\n");
-	Vector3 localObjectPos3D = Vector3Subtract(object->pos, this->player->pos);
+	Vector3 localObjectPos3D = Vector3Subtract(object->pos, player->pos);
 	Vector2 localObjectPos2D = { localObjectPos3D.x,localObjectPos3D.z };
-	Vector3 localTarget = Vector3Subtract(this->camera->target, this->player->pos);
-	float targetAngle = atan2(localTarget.x, localTarget.z);
+	Vector3 localTarget = Vector3Subtract(camera->target, player->pos);
+	double targetAngle = atan2(localTarget.x, localTarget.z);
 
 	printf("found angle, appling rotations\n");
 	Vector2 hurtBoxNearLeft = applyRotation(targetAngle,{ -5, 0 });
