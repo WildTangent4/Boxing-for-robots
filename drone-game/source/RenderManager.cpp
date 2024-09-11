@@ -12,11 +12,13 @@ void RenderManager::render()
 {
 	
 	for (const GameObject* obj : objects) {
-		DrawBillboard(*(this->viewport),
-			obj->texture,
-			obj->pos,
-			2,
-			WHITE);
+		if (obj->active) {
+			DrawBillboard(*(this->viewport),
+				obj->texture,
+				obj->pos,
+				2,
+				WHITE);
+		}
 	}
 }
 

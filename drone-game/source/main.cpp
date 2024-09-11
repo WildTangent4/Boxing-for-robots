@@ -52,6 +52,7 @@ int main()
         ClearBackground(RAYWHITE);
         EndMode3D();
         DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
+        test_object.active = false;
         EndDrawing();
     }
 
