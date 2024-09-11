@@ -1,11 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "raylib.h"
+#include <string>
 class Enemy : public GameObject {
-	Enemy(int health);
+public:
+	enum Behaviour { AGGRESSIVE, FLANKING, DEFENSIVE, BALANCED, SHORT_TEMPER, TEST };
+	Enemy(int health, Vector3 position, std::string texturePath, Behaviour behaviourType);
+	void Damage(int amount);
 private:
-	enum Behaviour {AGGRESSIVE,FLANKING, DEFENSIVE, BALANCED, SHORT_TEMPER};
 	enum States {BLOCK,RETREAT,PUSH,PUNCH};
 	int health = 1;
-	void Damage(int amount);
-	void RunAI();
+	void RunAI(Behaviour type);
 };

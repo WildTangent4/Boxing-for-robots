@@ -4,6 +4,7 @@
 #include "../headers/PhysicsManager.h"
 #include "../headers/RenderManager.h"
 #include "../headers/CharacterController.h"
+#include "../headers/Enemy.h"
 #include <raylib.h>
 #include <iostream>
 using namespace std;
@@ -36,7 +37,7 @@ int main()
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
-    GameObject test_object = GameObject(test_pos, "../../../resources/1.png");
+    Enemy test_object = Enemy(1,test_pos, "../../../resources/1.png",Enemy::TEST);
     phys.addObject(&test_object);
     rend.addObject(test_object);
     test_object.force = { 0.0,0.0,1 };
@@ -52,7 +53,8 @@ int main()
         ClearBackground(RAYWHITE);
         EndMode3D();
         DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
-        test_object.active = false;
+        //test_object.active = false;
+        test_object.Damage(1);
         EndDrawing();
     }
 
