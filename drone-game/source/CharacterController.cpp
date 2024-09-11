@@ -29,7 +29,7 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 	//TODO:check that x time has passed since last attack to avoid spam
 	if (IsKeyPressed(KEY_Q)) {
 		//std::vector<GameObject*> near_enemies = getNearObjects(objects, 2);//change to attackrange
-		getTargetableObjects(objects,5);
+		 getTargetableObjects(objects,5);
 		//filter all objects to only objects that are within the correct distance
 		//O(n)
 
@@ -84,7 +84,6 @@ std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObj
 
 std::vector<GameObject*> CharacterController::getTargetableObjects(std::vector<GameObject*> objects, float range)
 {
-
 	std::vector<GameObject*> nearObjects;
 	Vector3 playerPos = this->player->pos;
 	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos, range](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
