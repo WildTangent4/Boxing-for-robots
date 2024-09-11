@@ -5,6 +5,7 @@
 
 class GameObject{
 public:
+	bool active = true;
 	/// <summary>
 	/// warning force is not fully implemented right now, apply velocity directly instead
 	/// </summary>
@@ -14,7 +15,6 @@ public:
 	void applyForces(double delta_time);
 	GameObject(Vector3 pos,std::string texture_path);
 private:
-	bool active = true;
 	Texture2D texture;
 	const float maxSpeed = 100;
 	int direction = 0;
