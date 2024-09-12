@@ -47,7 +47,7 @@ void CharacterController::applyCameraInputs()
 		CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
 
 		//move camera based on WASD
-		float camera_move_speed = 0.5;//default 0.5
+		float camera_move_speed = 0.2;//default 0.5
 		if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
 		if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
 		if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);
@@ -91,19 +91,19 @@ std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameOb
 			enemies.push_back(dynamic_cast<Enemy*>(obj));
 		}
 	}
-	printf("detected %I64u enemies in play\n", enemies.size());
+	//printf("detected %I64u enemies in play\n", enemies.size());
 
 
-	std::vector<Enemy*> nearEnemies;
-	std::copy_if(std::begin(enemies), std::end(enemies), std::back_inserter(nearEnemies), [playerPos, range](Enemy* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
-	printf("detected %I64u enemies in range\n", nearEnemies.size());
+	//std::vector<Enemy*> nearEnemies;
+	//std::copy_if(std::begin(enemies), std::end(enemies), std::back_inserter(nearEnemies), [playerPos, range](Enemy* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
+	//printf("detected %I64u enemies in range\n", nearEnemies.size());
 
 	std::vector<Enemy*> targetedEnemies;
-	printf("copying \n");
+	//printf("copying \n");
 
 	GameObject* player = this->player;
 	Camera3D* camera = this->camera;
-	std::copy_if(std::begin(nearEnemies), std::end(nearEnemies), std::back_inserter(targetedEnemies), [player,camera](Enemy* obj) {return isInView(obj,player,camera); });
+	std::copy_if(std::begin(enemies), std::end(enemies), std::back_inserter(targetedEnemies), [player,camera](Enemy* obj) {return isInView(obj,player,camera); });
 	printf("detected %I64u enemies in target box\n", targetedEnemies.size());
 	
 	return targetedEnemies;
@@ -111,17 +111,19 @@ std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameOb
 
 bool CharacterController::isInView(GameObject* object, GameObject* player, Camera3D* camera)
 {
-	printf("running isInView\n");
+	//printf("running isInView\n");
 	Vector3 localObjectPos3D = Vector3Subtract(object->pos, player->pos);
 	Vector2 localObjectPos2D = { localObjectPos3D.x,localObjectPos3D.z };
 	Vector3 localTarget = Vector3Subtract(camera->target, player->pos);
 	double targetAngle = atan2(localTarget.x, localTarget.z);
+	//ensure target angle covers 360 degree range
+	printf("\n\n%f\n\n", targetAngle);
 
 	printf("found angle, appling rotations\n");
-	Vector2 hurtBoxNearLeft = applyRotation(targetAngle,{-5,0});
-	Vector2 hurtBoxNearRight = applyRotation(targetAngle, {5,0});
-	Vector2 hurtBoxFarLeft = applyRotation(targetAngle, {-5,-5});
-	Vector2 hurtBoxFarRight = applyRotation(targetAngle, {5,-5});
+	Vector2 hurtBoxNearLeft = applyRotation(targetAngle, { -5,0 });
+	Vector2 hurtBoxNearRight = applyRotation(targetAngle, { 5,0 });
+	Vector2 hurtBoxFarLeft = applyRotation(targetAngle, { -5,5 });
+	Vector2 hurtBoxFarRight = applyRotation(targetAngle, { 5,5 });
 
 	//shift box onto player position
 	hurtBoxNearLeft = { player->pos.x + hurtBoxNearLeft.x, player->pos.z + hurtBoxNearLeft.y };
@@ -140,7 +142,7 @@ bool CharacterController::isInView(GameObject* object, GameObject* player, Camer
 
 Vector2 CharacterController::applyRotation(float angle, Vector2 point)
 {
-	printf("running applyRotation\n");
+	//printf("running applyRotation\n");
 	double rotationMatrix[2][2] = {
 		{ cos(angle) , -sin(angle) },
 		{ sin(angle) , cos(angle)  }
@@ -151,7 +153,7 @@ Vector2 CharacterController::applyRotation(float angle, Vector2 point)
 		point.x * rotationMatrix[1][0] + point.y * rotationMatrix[1][1]
 	};
 
-	printf("rotated a point\n");
+	//printf("rotated a point\n");
 	return rotatedPoint;
 }
 
