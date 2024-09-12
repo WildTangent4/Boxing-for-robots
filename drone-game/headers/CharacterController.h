@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Enemy.h"
 #include <rcamera.h>
 #include <vector>
 #include <algorithm>
@@ -27,7 +28,7 @@ private:
 	void applyJumpInputs();
 	
 	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
-	std::vector<GameObject*> getTargetableObjects(std::vector<GameObject*> objects, float range);
+	std::vector<Enemy*> getTargetableObjects(std::vector<GameObject*> objects, float range);
 
 	static bool isInView(GameObject* object, GameObject* player, Camera3D* camera);
 

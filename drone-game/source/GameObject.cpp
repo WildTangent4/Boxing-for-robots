@@ -1,5 +1,9 @@
 #include "../headers/GameObject.h"
 #include "raymath.h"
+bool GameObject::canBeDamaged()
+{
+	return false;
+}
 void GameObject::applyForces(double delta_time) {
 	// apply all forces to velocity, capping to max speed if appropriate (use std clamp)
 	// add forces to velocity

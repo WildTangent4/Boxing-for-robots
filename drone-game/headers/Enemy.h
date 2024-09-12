@@ -4,6 +4,7 @@
 #include <string>
 class Enemy : public GameObject {
 public:
+	bool canBeDamaged() override;
 	enum Behaviour { AGGRESSIVE, FLANKING, DEFENSIVE, BALANCED, SHORT_TEMPER, TEST };
 	Enemy(int health, Vector3 position, std::string texturePath, Behaviour behaviourType);
 	void Damage(int amount);

@@ -1,5 +1,10 @@
 #include "..\headers\Enemy.h"
 
+bool Enemy::canBeDamaged()
+{
+	return true;
+}
+
 Enemy::Enemy(int health, Vector3 position, std::string texturePath, Behaviour behaviourType) : GameObject(position, texturePath)
 {
 	this->health = health;

@@ -5,6 +5,7 @@
 
 class GameObject{
 public:
+	virtual bool canBeDamaged();
 	bool active = true;
 	Texture2D texture;
 	int direction = 0;
@@ -16,6 +17,7 @@ public:
 	Vector3 velocity = { 0,0,0 };
 	void applyForces(double delta_time);
 	GameObject(Vector3 pos,std::string texture_path);
+	virtual ~GameObject() = default;
 private:
 	const float maxSpeed = 100;
 };

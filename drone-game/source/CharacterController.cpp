@@ -28,12 +28,10 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
 	//TODO:check that x time has passed since last attack to avoid spam
 	if (IsKeyPressed(KEY_Q)) {
-		//std::vector<GameObject*> near_enemies = getNearObjects(objects, 2);//change to attackrange
-		 getTargetableObjects(objects,5);
-		//filter all objects to only objects that are within the correct distance
-		//O(n)
-
-		//filter to only object within the hurt box (2,4 rectangle on ground in front of player)
+		std::vector<Enemy*> targets = getTargetableObjects(objects,5);
+		for (Enemy* target : targets) {
+			target->Damage(1);
+		}
 	}
 }
 
@@ -74,7 +72,6 @@ void CharacterController::applyJumpInputs()
 
 std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObject*> objects,float range)
 {
-
 	std::vector<GameObject*> nearObjects;
 	Vector3 playerPos = this->player->pos;
 	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos,range](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
@@ -82,22 +79,34 @@ std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObj
 	return nearObjects;
 }
 
-std::vector<GameObject*> CharacterController::getTargetableObjects(std::vector<GameObject*> objects, float range)
+std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameObject*> objects, float range)
 {
-	std::vector<GameObject*> nearObjects;
+	//todo:rename enemy to something like "damagable" and have the enemy class inherit from that (this lets you have destructible scenery)
+	std::vector<Enemy*> enemies;
 	Vector3 playerPos = this->player->pos;
-	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos, range](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
-	printf("detected %I64u objects in range\n", nearObjects.size());
+	//std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(enemies), [](GameObject* obj) {return obj->canBeDamaged; });//TODO make range specific to equipped weapon
+	for (GameObject* obj : objects) {
+		//printf("found an object", enemies.size());
+		if (obj->canBeDamaged()) {
+			enemies.push_back(dynamic_cast<Enemy*>(obj));
+		}
+	}
+	printf("detected %I64u enemies in play\n", enemies.size());
 
-	std::vector<GameObject*> targetedObjects;
+
+	std::vector<Enemy*> nearEnemies;
+	std::copy_if(std::begin(enemies), std::end(enemies), std::back_inserter(nearEnemies), [playerPos, range](Enemy* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
+	printf("detected %I64u enemies in range\n", nearEnemies.size());
+
+	std::vector<Enemy*> targetedEnemies;
 	printf("copying \n");
 
 	GameObject* player = this->player;
 	Camera3D* camera = this->camera;
-	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(targetedObjects), [player,camera](GameObject* obj) {return isInView(obj,player,camera); });
-	printf("detected %I64u objects in target box\n", targetedObjects.size());
+	std::copy_if(std::begin(nearEnemies), std::end(nearEnemies), std::back_inserter(targetedEnemies), [player,camera](Enemy* obj) {return isInView(obj,player,camera); });
+	printf("detected %I64u enemies in target box\n", targetedEnemies.size());
 	
-	return nearObjects;
+	return targetedEnemies;
 }
 
 bool CharacterController::isInView(GameObject* object, GameObject* player, Camera3D* camera)
@@ -109,10 +118,16 @@ bool CharacterController::isInView(GameObject* object, GameObject* player, Camer
 	double targetAngle = atan2(localTarget.x, localTarget.z);
 
 	printf("found angle, appling rotations\n");
-	Vector2 hurtBoxNearLeft = applyRotation(targetAngle,{ -5, 0 });
+	Vector2 hurtBoxNearLeft = applyRotation(targetAngle,{-5,0});
 	Vector2 hurtBoxNearRight = applyRotation(targetAngle, {5,0});
 	Vector2 hurtBoxFarLeft = applyRotation(targetAngle, {-5,-5});
 	Vector2 hurtBoxFarRight = applyRotation(targetAngle, {5,-5});
+
+	//shift box onto player position
+	hurtBoxNearLeft = { player->pos.x + hurtBoxNearLeft.x, player->pos.z + hurtBoxNearLeft.y };
+	hurtBoxNearRight = { player->pos.x + hurtBoxNearRight.x, player->pos.z + hurtBoxNearRight.y };
+	hurtBoxFarLeft = { player->pos.x + hurtBoxFarLeft.x, player->pos.z + hurtBoxFarLeft.y };
+	hurtBoxFarRight = { player->pos.x + hurtBoxFarRight.x, player->pos.z + hurtBoxFarRight.y };
 
 	printf("constructing hurtbox and checking collisions\n");
 	std::vector<Vector2> hurtBox = { hurtBoxNearLeft, hurtBoxFarLeft, hurtBoxFarRight, hurtBoxNearRight, hurtBoxNearLeft };

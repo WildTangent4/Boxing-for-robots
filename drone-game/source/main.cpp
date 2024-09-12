@@ -54,7 +54,6 @@ int main()
         EndMode3D();
         DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
         //test_object.active = false;
-        test_object.Damage(1);
         EndDrawing();
     }
 
