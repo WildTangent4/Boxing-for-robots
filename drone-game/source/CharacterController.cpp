@@ -112,29 +112,35 @@ std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameOb
 bool CharacterController::isInView(GameObject* object, GameObject* player, Camera3D* camera)
 {
 	//printf("running isInView\n");
-	Vector3 localObjectPos3D = Vector3Subtract(object->pos, player->pos);
-	Vector2 localObjectPos2D = { localObjectPos3D.x,localObjectPos3D.z };
+	//Vector3 localObjectPos3D = Vector3Subtract(object->pos, player->pos);
+	//Vector2 localObjectPos2D = { localObjectPos3D.x,localObjectPos3D.z };
+
+	//get the point the camera is looking at
 	Vector3 localTarget = Vector3Subtract(camera->target, player->pos);
+	//calculate the angle the camera is looking
 	double targetAngle = atan2(localTarget.x, localTarget.z);
 	//ensure target angle covers 360 degree range
-	printf("\n\n%f\n\n", targetAngle);
-
 	printf("found angle, appling rotations\n");
-	Vector2 hurtBoxNearLeft = applyRotation(targetAngle, { -5,0 });
-	Vector2 hurtBoxNearRight = applyRotation(targetAngle, { 5,0 });
-	Vector2 hurtBoxFarLeft = applyRotation(targetAngle, { -5,5 });
-	Vector2 hurtBoxFarRight = applyRotation(targetAngle, { 5,5 });
-
-	//shift box onto player position
-	hurtBoxNearLeft = { player->pos.x + hurtBoxNearLeft.x, player->pos.z + hurtBoxNearLeft.y };
-	hurtBoxNearRight = { player->pos.x + hurtBoxNearRight.x, player->pos.z + hurtBoxNearRight.y };
+	printf("\n\nangle is %f\n\n\n", RAD2DEG * targetAngle);
+	
+	//Vector2 hurtBoxNearLeft = applyRotation(targetAngle, { 0,-2 });
+	//Vector2 hurtBoxNearRight = applyRotation(targetAngle, { 0,2 });
+	Vector2 hurtBoxFarLeft = applyRotation(targetAngle, { 3,-2 });
+	Vector2 hurtBoxFarRight = applyRotation(targetAngle, { 3,2 });
 	hurtBoxFarLeft = { player->pos.x + hurtBoxFarLeft.x, player->pos.z + hurtBoxFarLeft.y };
 	hurtBoxFarRight = { player->pos.x + hurtBoxFarRight.x, player->pos.z + hurtBoxFarRight.y };
 
-	printf("constructing hurtbox and checking collisions\n");
-	std::vector<Vector2> hurtBox = { hurtBoxNearLeft, hurtBoxFarLeft, hurtBoxFarRight, hurtBoxNearRight, hurtBoxNearLeft };
 
-	bool isInBox = CheckCollisionPointPoly(localObjectPos2D, (Vector2*)hurtBox.data(), 4);
+	Vector2 triOrigin = { player->pos.x,player->pos.z };
+	//add player position to box coordinates
+	//hurtBoxNearLeft = { player->pos.x + hurtBoxNearLeft.x, player->pos.z + hurtBoxNearLeft.y };
+	//hurtBoxNearRight = { player->pos.x + hurtBoxNearRight.x, player->pos.z + hurtBoxNearRight.y };
+	
+
+	printf("constructing hurtbox and checking collisions\n");
+	std::vector<Vector2> hurtBox = { triOrigin, hurtBoxFarLeft, hurtBoxFarRight };
+
+	bool isInBox = CheckCollisionPointPoly({object->pos.x, object->pos.y}, (Vector2*)hurtBox.data(), 3);
 	printf("isInBox value: %d\n",isInBox);
 
 	return isInBox;

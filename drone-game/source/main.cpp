@@ -22,8 +22,8 @@ int main()
 
     //configure camera and rendering
     Camera3D cam = Camera3D{ 0 };
-    cam.position = { 5, 2, 4 };
-    cam.target = { 0,0,0 };
+    cam.position = { 1, 2, 1 };
+    //cam.target = { 0,0,0 };
     cam.up = { 0,1,0 };
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
@@ -37,7 +37,7 @@ int main()
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
-    Enemy test_object = Enemy(1,test_pos, "../../../resources/1.png",Enemy::TEST);
+    Enemy test_object = Enemy(10,test_pos, "../../../resources/1.png",Enemy::TEST);
     phys.addObject(&test_object);
     rend.addObject(test_object);
     test_object.force = { 0.0,0.0,1 };
