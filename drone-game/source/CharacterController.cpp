@@ -70,6 +70,57 @@ void CharacterController::applyJumpInputs()
 {
 }
 
+void CharacterController::renderUI()
+{
+	RenderTexture2D canvas = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+
+	float screenHeight = GetScreenHeight();
+	float screenWidth = GetScreenWidth();
+
+	//calculate required scale
+	float scaleX = screenWidth / this->r_block.width;
+	float scaleY = screenHeight / this->r_block.height;
+
+	Rectangle source = { 0,-screenHeight, screenWidth,-screenHeight };
+	Rectangle dest = { 0,0,screenWidth * scaleX ,screenHeight * scaleY };
+
+	BeginTextureMode(canvas);
+	//render left arm
+	switch (leftArmState)
+	{
+	case BLOCK:
+		DrawTexture(this->l_block, 0, 0, WHITE);
+		break;
+	case REST:
+		DrawTexture(this->l_rest, 0, 0, WHITE);
+		break;
+	case PUNCH:
+		DrawTexture(this->l_punch, 0,0 , WHITE);
+		break;
+	default:
+		break;
+	}
+
+	//render right arm
+	switch (rightArmState)
+	{
+	case BLOCK:
+		DrawTexture(this->r_block, 0, 0, WHITE);
+		break;
+	case REST:
+		DrawTexture(this->r_rest, 0, 0, WHITE);
+		break;
+	case PUNCH:
+		DrawTexture(this->r_punch, 0, 0, WHITE);
+		break;
+	default:
+		break;
+	}
+	EndTextureMode();
+
+	DrawTexturePro(canvas.texture, source, dest, { 0,0 }, 0, WHITE);
+}
+
 std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObject*> objects,float range)
 {
 	std::vector<GameObject*> nearObjects;

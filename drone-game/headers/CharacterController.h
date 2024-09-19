@@ -7,9 +7,9 @@
 #include <iterator>
 #include <raymath.h>
 enum armState{
-	BLOCK,
-	REST,
-	PUNCH
+	BLOCK = 1,
+	REST = 2,
+	PUNCH = 3
 };
 
 class CharacterController {
