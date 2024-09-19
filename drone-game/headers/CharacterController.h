@@ -6,11 +6,30 @@
 #include <algorithm>
 #include <iterator>
 #include <raymath.h>
+enum armState{
+	BLOCK,
+	REST,
+	PUNCH
+};
+
 class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick(std::vector<GameObject*> objects);
+	void renderUI();
 private:
+	
+	armState leftArmState = REST;
+	armState rightArmState = REST;
+
+	Texture2D r_block = LoadTexture("../../../resources/R_block.png");
+	Texture2D r_rest = LoadTexture("../../../resources/R_rest.png");
+	Texture2D r_punch = LoadTexture("../../../resources/R_punch.png");
+
+	Texture2D l_block = LoadTexture("../../../resources/L_block.png");
+	Texture2D l_rest = LoadTexture("../../../resources/L_rest.png");
+	Texture2D l_punch = LoadTexture("../../../resources/L_punch.png");
+
 	GameObject* player;
 	Camera3D* camera;
 	double coyoteTime = 0;
