@@ -28,6 +28,8 @@ private:
 	armState leftArmState = REST;
 	armState rightArmState = REST;
 
+	RenderTexture2D canvas = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+
 	Texture2D r_block = LoadTexture("../../../resources/R_block.png");
 	Texture2D r_rest = LoadTexture("../../../resources/R_rest.png");
 	Texture2D r_punch = LoadTexture("../../../resources/R_punch.png");

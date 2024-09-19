@@ -106,7 +106,6 @@ void CharacterController::applyJumpInputs()
 
 void CharacterController::renderUI()
 {
-	RenderTexture2D canvas = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
 
 	float screenHeight = GetScreenHeight();
 	float screenWidth = GetScreenWidth();
@@ -118,7 +117,8 @@ void CharacterController::renderUI()
 	Rectangle source = { 0,-screenHeight, screenWidth,-screenHeight };
 	Rectangle dest = { 0,0,screenWidth * scaleX ,screenHeight * scaleY };
 
-	BeginTextureMode(canvas);
+	BeginTextureMode(this->canvas);
+	ClearBackground(BLANK);
 	//render left arm
 	switch (leftArmState)
 	{
@@ -152,7 +152,7 @@ void CharacterController::renderUI()
 	}
 	EndTextureMode();
 
-	DrawTexturePro(canvas.texture, source, dest, { 0,0 }, 0, WHITE);
+	DrawTexturePro(this->canvas.texture, source, dest, { 0,0 }, 0, WHITE);
 }
 
 std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObject*> objects,float range)
