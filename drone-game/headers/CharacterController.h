@@ -6,11 +6,8 @@
 #include <algorithm>
 #include <iterator>
 #include <raymath.h>
-enum armState{
-	BLOCK = 1,
-	REST = 2,
-	PUNCH = 3
-};
+
+
 
 class CharacterController {
 public:
@@ -18,6 +15,12 @@ public:
 	void applyGameTick(std::vector<GameObject*> objects);
 	void renderUI();
 private:
+	enum armState {
+		BLOCK = 1,
+		REST = 2,
+		PUNCH = 3
+	};
+
 	float punchCooldown = 0.3;
 	float timeSinceLastLeftPunch = INFINITY;
 	float timeSinceLastRightPunch = INFINITY;

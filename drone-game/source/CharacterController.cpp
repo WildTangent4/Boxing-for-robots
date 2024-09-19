@@ -59,6 +59,14 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 		}
 	}
 
+	if (IsKeyDown(KEY_LEFT_SHIFT)) {
+		if (this->timeSinceLastLeftPunch > punchCooldown) {
+			this->leftArmState = BLOCK;
+		}
+		if (this->timeSinceLastRightPunch > punchCooldown) {
+			this->rightArmState = BLOCK;
+		}
+	}
 }
 
 void CharacterController::applyCameraInputs()
