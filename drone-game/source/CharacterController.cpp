@@ -26,13 +26,42 @@ void CharacterController::applyQueuedInputs()
 
 void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
+	
+	
 	//TODO:check that x time has passed since last attack to avoid spam
-	if (IsKeyPressed(KEY_Q)) {
+	if (IsKeyPressed(KEY_E) && this->timeSinceLastRightPunch>punchCooldown) {
+		this->timeSinceLastRightPunch = 0;
+		this->rightArmState = PUNCH;
 		std::vector<Enemy*> targets = getTargetableObjects(objects,5);
 		for (Enemy* target : targets) {
 			target->Damage(1);
 		}
 	}
+	else {
+		this->timeSinceLastRightPunch += GetFrameTime();
+		if (this->timeSinceLastRightPunch > punchCooldown) {
+			this->rightArmState = REST;
+		}
+	}
+	//end the last punch if the timer has reached the desired time
+
+
+	//TODO:check that x time has passed since last attack to avoid spam
+	if (IsKeyPressed(KEY_Q) && this->timeSinceLastLeftPunch > punchCooldown) {
+		this->timeSinceLastLeftPunch = 0;
+		this->leftArmState = PUNCH;
+		std::vector<Enemy*> targets = getTargetableObjects(objects, 5);
+		for (Enemy* target : targets) {
+			target->Damage(1);
+		}
+	}
+	else {
+		this->timeSinceLastLeftPunch += GetFrameTime();
+		if (this->timeSinceLastLeftPunch > punchCooldown) {
+			this->leftArmState = REST;
+		}
+	}
+	//end the last punch if the timer has reached the desired time
 }
 
 void CharacterController::applyCameraInputs()

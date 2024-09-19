@@ -18,7 +18,10 @@ public:
 	void applyGameTick(std::vector<GameObject*> objects);
 	void renderUI();
 private:
-	
+	float punchCooldown = 0.3;
+	float timeSinceLastLeftPunch = INFINITY;
+	float timeSinceLastRightPunch = INFINITY;
+
 	armState leftArmState = REST;
 	armState rightArmState = REST;
 
@@ -45,7 +48,7 @@ private:
 	void applyCameraInputs();
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();
-	
+
 	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
 	std::vector<Enemy*> getTargetableObjects(std::vector<GameObject*> objects, float range);
 
