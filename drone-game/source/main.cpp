@@ -52,7 +52,7 @@ int main()
         rend.render();
         ClearBackground(RAYWHITE);
         EndMode3D();
-        playerController.renderUI();
+        playerController.renderUI(cam);
         DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
         //test_object.active = false;
         EndDrawing();

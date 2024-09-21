@@ -104,9 +104,8 @@ void CharacterController::applyJumpInputs()
 {
 }
 
-void CharacterController::renderUI()
+void CharacterController::renderUI(Camera3D & camera)
 {
-
 	float screenHeight = GetScreenHeight();
 	float screenWidth = GetScreenWidth();
 
@@ -114,8 +113,22 @@ void CharacterController::renderUI()
 	float scaleX = screenWidth / this->r_block.width;
 	float scaleY = screenHeight / this->r_block.height;
 
+	//lerp UI pos to camera movement
+	float bobDampingStrength = 0.1;
+	float bobMovementScaleX = 70;
+	float bobMovementScaleY = 20;
+	float bobMovementFrequency = 0.5;
+	float posY = 1-sin(sqrt(pow(player->pos.x,2)+pow(player->pos.y,2)) * bobMovementFrequency );
+	
+	//float currentYangle = atan2(,camera.target.y;
+	float currentXangle = atan2(camera.target.x-player->pos.x,camera.target.y - player->pos.y);
+	float camMovementX = currentXangle - lastXangle;
+
+	float posX = Lerp(0,camMovementX,bobDampingStrength);
+	
+
 	Rectangle source = { 0,-screenHeight, screenWidth,-screenHeight };
-	Rectangle dest = { 0,0,screenWidth * scaleX ,screenHeight * scaleY };
+	Rectangle dest = { posX* bobMovementScaleX,posY*bobMovementScaleY,screenWidth * scaleX ,screenHeight * scaleY };
 
 	BeginTextureMode(this->canvas);
 	ClearBackground(BLANK);

@@ -13,7 +13,7 @@ class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick(std::vector<GameObject*> objects);
-	void renderUI();
+	void renderUI(Camera3D &camera);
 private:
 	enum armState {
 		BLOCK = 1,
@@ -37,6 +37,9 @@ private:
 	Texture2D l_block = LoadTexture("../../../resources/L_block.png");
 	Texture2D l_rest = LoadTexture("../../../resources/L_rest.png");
 	Texture2D l_punch = LoadTexture("../../../resources/L_punch.png");
+
+	float lastXangle = 0;
+	float lastYangle = 0;
 
 	GameObject* player;
 	Camera3D* camera;
