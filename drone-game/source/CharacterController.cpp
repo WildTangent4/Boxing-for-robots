@@ -28,7 +28,7 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
 	
 	//handle right arm	
-	if (IsKeyPressed(KEY_E) && this->timeSinceLastRightPunch>punchCooldown) {
+	if (IsKeyPressed(KEY_E) && this->timeSinceLastRightPunch>punchCooldown && (this->timeSinceLastLeftPunch > punchCooldown)) {
 		this->timeSinceLastRightPunch = 0;
 		this->rightArmState = PUNCH;
 		std::vector<Enemy*> targets = getTargetableObjects(objects,5);
@@ -44,7 +44,7 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 	}
 	
 	//handle left arm
-	if (IsKeyPressed(KEY_Q) && this->timeSinceLastLeftPunch > punchCooldown) {
+	if (IsKeyPressed(KEY_Q) && this->timeSinceLastLeftPunch > punchCooldown && (this->timeSinceLastRightPunch > punchCooldown)) {
 		this->timeSinceLastLeftPunch = 0;
 		this->leftArmState = PUNCH;
 		std::vector<Enemy*> targets = getTargetableObjects(objects, 5);
