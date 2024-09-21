@@ -21,7 +21,7 @@ private:
 		PUNCH = 3
 	};
 
-	float punchCooldown = 0.3;
+	float punchCooldown = 0.1;
 	float timeSinceLastLeftPunch = INFINITY;
 	float timeSinceLastRightPunch = INFINITY;
 
