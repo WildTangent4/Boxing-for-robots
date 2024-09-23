@@ -25,3 +25,8 @@ GameObject::GameObject(Vector3 pos, std::string texture_path)
 	this->pos = pos;
 	this->texture = LoadTexture(texture_path.c_str());
 }
+GameObject::GameObject(Vector3 pos, Texture2D texture)
+{
+	this->pos = pos;
+	this->texture = texture;
+}

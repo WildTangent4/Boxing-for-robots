@@ -17,6 +17,7 @@ public:
 	Vector3 velocity = { 0,0,0 };
 	void applyForces(double delta_time);
 	GameObject(Vector3 pos,std::string texture_path);
+	GameObject(Vector3 pos, Texture2D texture);
 	virtual ~GameObject() = default;
 private:
 	const float maxSpeed = 100;

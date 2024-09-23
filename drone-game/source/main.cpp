@@ -5,6 +5,7 @@
 #include "../headers/RenderManager.h"
 #include "../headers/CharacterController.h"
 #include "../headers/Enemy.h"
+#include "../headers/SpriteSet.h"
 #include <raylib.h>
 #include <iostream>
 using namespace std;
@@ -34,10 +35,20 @@ int main()
     PhysicsManager phys;
 
 
+    SpriteSet testEnemySprites;
+    testEnemySprites.rest = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.hit = LoadTexture("../../../resources/temp enemy hit.png");
+    testEnemySprites.block = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.punch_heavy = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.punch_light = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.moveAnim.push_back(LoadTexture("../../../resources/temp enemy.png"));
+
+
+
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
-    Enemy test_object = Enemy(10,test_pos, "../../../resources/temp enemy.png",Enemy::TEST);
+    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::TEST);
     phys.addObject(&test_object);
     rend.addObject(test_object);
     test_object.force = { 0.0,0.0,1 };

@@ -5,7 +5,7 @@ bool Enemy::canBeDamaged()
 	return true;
 }
 
-Enemy::Enemy(int health, Vector3 position, std::string texturePath, Behaviour behaviourType) : GameObject(position, texturePath)
+Enemy::Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType) : GameObject(position, sprites.rest)
 {
 	this->health = health;
 	RunAI(behaviourType);
