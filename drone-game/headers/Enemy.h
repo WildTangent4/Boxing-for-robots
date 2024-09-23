@@ -16,6 +16,7 @@ public:
 	bool canBeDamaged() override;
 	Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType);
 	void Damage(int amount);
+	void RunAI(Behaviour type);
 private:
 	enum State {
 		BLOCK = 1,
@@ -26,6 +27,9 @@ private:
 		WAIT = 6
 	};
 	State currentState;
+	SpriteSet sprites;
+	float stunTimeRemaining = 0;
 	int health = 1;
-	void RunAI(Behaviour type);
+	
+	State findNextAction(Behaviour type);
 };

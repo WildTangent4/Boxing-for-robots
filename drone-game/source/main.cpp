@@ -43,12 +43,12 @@ int main()
     testEnemySprites.punch_light = LoadTexture("../../../resources/temp enemy.png");
     testEnemySprites.moveAnim.push_back(LoadTexture("../../../resources/temp enemy.png"));
 
-
-
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
     Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::TEST);
+    vector<Enemy*> allEnemies;
+    allEnemies.push_back(&test_object);
     phys.addObject(&test_object);
     rend.addObject(test_object);
     test_object.force = { 0.0,0.0,1 };
@@ -57,6 +57,10 @@ int main()
         //cam.target = test_object.pos;
         
         playerController.applyGameTick(phys.getObjects());
+        for each (Enemy* enemy in allEnemies)
+        {
+            enemy->RunAI(Enemy::TEST);
+        }
         BeginDrawing();
         BeginMode3D(cam);
         DrawGrid(10, 1);
