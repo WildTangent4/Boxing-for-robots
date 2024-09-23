@@ -17,13 +17,15 @@ public:
 	Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType);
 	void Damage(int amount);
 private:
-	enum States {
+	enum State {
 		BLOCK = 1,
 		RETREAT = 2,
 		PUSH = 3,
 		PUNCH = 4,
-		STUNNED = 5
+		STUNNED = 5,
+		WAIT = 6
 	};
+	State currentState;
 	int health = 1;
 	void RunAI(Behaviour type);
 };
