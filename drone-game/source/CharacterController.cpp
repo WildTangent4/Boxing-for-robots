@@ -26,6 +26,7 @@ void CharacterController::applyQueuedInputs()
 
 void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
+	//todo add a light attack if the shift key is pressed
 	
 	//handle right arm	
 	if (IsKeyPressed(KEY_E) && this->timeSinceLastRightPunch>punchCooldown && (this->timeSinceLastLeftPunch > punchCooldown)) {

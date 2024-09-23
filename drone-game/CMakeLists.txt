@@ -17,7 +17,7 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
 # Add source to this project's executable.
-add_executable (drone-game "source/main.cpp"  "headers/GameObject.h" "source/GameObject.cpp" "headers/DataTypes.h" "headers/PhysicsManager.h" "headers/Input.h" "source/PhysicsManager.cpp" "headers/RenderManager.h" "source/RenderManager.cpp"   "headers/CharacterController.h" "source/CharacterController.cpp" "headers/Enemy.h" "source/Enemy.cpp")
+add_executable (drone-game "source/main.cpp"  "headers/GameObject.h" "source/GameObject.cpp" "headers/DataTypes.h" "headers/PhysicsManager.h" "headers/Input.h" "source/PhysicsManager.cpp" "headers/RenderManager.h" "source/RenderManager.cpp"   "headers/CharacterController.h" "source/CharacterController.cpp" "headers/Enemy.h" "source/Enemy.cpp" "headers/SpriteSet.h" )
 
 # TODO: Add tests and install targets if needed.
 #target_link_libraries(${PROJECT_NAME} raylib)

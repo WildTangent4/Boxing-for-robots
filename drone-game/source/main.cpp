@@ -37,7 +37,7 @@ int main()
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,1,1 };
-    Enemy test_object = Enemy(10,test_pos, "../../../resources/1.png",Enemy::TEST);
+    Enemy test_object = Enemy(10,test_pos, "../../../resources/temp enemy.png",Enemy::TEST);
     phys.addObject(&test_object);
     rend.addObject(test_object);
     test_object.force = { 0.0,0.0,1 };
