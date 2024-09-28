@@ -51,7 +51,6 @@ int main()
     allEnemies.push_back(&test_object);
     phys.addObject(&test_object);
     rend.addObject(test_object);
-    test_object.force = { 0.0,0.0,1 };
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
         //cam.target = test_object.pos;
@@ -59,7 +58,7 @@ int main()
         playerController.applyGameTick(phys.getObjects());
         for each (Enemy* enemy in allEnemies)
         {
-            enemy->RunAI(Enemy::TEST);
+            enemy->RunAI(Enemy::TEST,&player);
         }
         BeginDrawing();
         BeginMode3D(cam);
