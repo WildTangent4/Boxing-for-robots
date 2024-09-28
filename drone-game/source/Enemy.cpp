@@ -37,6 +37,9 @@ void Enemy::RunAI(Behaviour type,GameObject* player)
 void Enemy::adjustAggression()
 {
 	//include features like if player is moving towards enemy (i.e. looks like they might punch or has block lowered)
+	this->aggressionLevel = this->aggressionLevel +
+		((this->baseAggressionIncreaseRate)*GetFrameTime());
+	printf("%f", this->aggressionLevel);
 }
 
 Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
@@ -53,7 +56,6 @@ Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
 	}
 	//if player is in fighting range and aggression is high, punch
 	else if (Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.8) {
-		
 		return State::PUNCH;
 	}
 	//if player is in fighting range and aggression is low, block

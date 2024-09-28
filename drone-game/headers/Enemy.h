@@ -23,7 +23,7 @@ private:
 	float aggressionLevel = 0;
 
 	//increase agression by this much per second, modifiers should be applied based on factors like current health and time since last hit
-	float baseAggressionIncreaseRate = 0.1;
+	float baseAggressionIncreaseRate = 0.5;
 	enum State {
 		BLOCK = 1, //dont move and protect yourself
 		RETREAT = 2,//walk away from the player and maintain a safe ish distance
