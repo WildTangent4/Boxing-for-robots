@@ -32,8 +32,8 @@ void Enemy::RunAI(Behaviour type,GameObject* player)
 		}
 		adjustAggression();
 		this->currentState = findNextAction(type,player);
-			
 		this->texture = this->sprites.rest;
+		applyState(player);
 	}
 	
 }
@@ -58,19 +58,18 @@ void Enemy::applyState(GameObject* target)
 	case State::PUSH:
 		this->texture = this->sprites.moveAnim.at(0);//todo create play animation function
 		//move towards player
+		printf("X:%f,Y:%f", this->pos.x, this->pos.y);
 		this->pos =
 			Vector3Add(
 				(Vector3Scale(
 					Vector3Scale(
-						Vector3Normalize(
-							Vector3Subtract(this->pos, target->pos)
-						),
+						Vector3Normalize(Vector3Subtract(this->pos, target->pos)),
 						this->moveSpeed
 					),
 					GetFrameTime())),
 				this->pos
 			);
-
+		printf("X:%f,Y:%f", this->pos.x, this->pos.y);
 	case State::WAIT:
 		this->texture = this->sprites.rest;
 	case State::STUNNED:
