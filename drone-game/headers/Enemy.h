@@ -39,5 +39,6 @@ private:
 	float aggroDist = 10;
 	float attackDist = 2;
 	void adjustAggression();
+	void applyState(GameObject* target);
 	State findNextAction(Behaviour type,GameObject * player);
 };

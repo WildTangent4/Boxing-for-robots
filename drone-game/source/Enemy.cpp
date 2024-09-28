@@ -28,7 +28,8 @@ void Enemy::RunAI(Behaviour type,GameObject* player)
 		this->stunTimeRemaining = this->stunTimeRemaining - GetFrameTime();
 		if (this->stunTimeRemaining <= 0) {
 			adjustAggression();
-			currentState = findNextAction(type,player);
+			this->currentState = findNextAction(type,player);
+			
 			this->texture = this->sprites.rest;
 		}
 	}
@@ -40,6 +41,29 @@ void Enemy::adjustAggression()
 	this->aggressionLevel = this->aggressionLevel +
 		((this->baseAggressionIncreaseRate)*GetFrameTime());
 	printf("%f", this->aggressionLevel);
+}
+
+void Enemy::applyState(GameObject* target)
+{
+	switch (this->currentState)
+	{
+	case State::BLOCK:
+		this->texture = this->sprites.block;
+	case State::PUNCH:
+		this->texture = this->sprites.punch_heavy;
+		//hit target
+		//todo make hit function for player - probably worth creating a class "damagable" that enemy and player inherit from
+	case State::PUSH:
+		this->texture = this->sprites.moveAnim.at(0);//todo create play animation function
+	case State::WAIT:
+		this->texture = this->sprites.rest;
+	case State::STUNNED:
+		this->texture = this->sprites.hit;
+	case State::RETREAT:
+		this->texture = this->sprites.moveAnim.at(0);
+	default:
+		break;
+	}
 }
 
 Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
@@ -57,6 +81,10 @@ Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
 	//if player is in fighting range and aggression is high, punch
 	else if (Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.8) {
 		return State::PUNCH;
+	}
+	//if the enemy is about to punch, lower block to give player time to react
+	else if (Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.6) {
+		return State::WAIT;
 	}
 	//if player is in fighting range and aggression is low, block
 	else if ((Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.2)) {

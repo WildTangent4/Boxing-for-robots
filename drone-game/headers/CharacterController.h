@@ -57,6 +57,8 @@ private:
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();
 
+	
+
 	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
 	std::vector<Enemy*> getTargetableObjects(std::vector<GameObject*> objects, float range);
 
