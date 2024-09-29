@@ -45,7 +45,7 @@ int main()
 
     phys.simulate();
     // Main game loop
-    Vector3 test_pos = { 1,1,1 };
+    Vector3 test_pos = { 1,0,1 };
     Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::TEST);
     vector<Enemy*> allEnemies;
     allEnemies.push_back(&test_object);

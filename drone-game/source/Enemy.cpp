@@ -58,24 +58,28 @@ void Enemy::applyState(GameObject* target)
 	case State::PUSH:
 		this->texture = this->sprites.moveAnim.at(0);//todo create play animation function
 		//move towards player
-		printf("X:%f,Y:%f", this->pos.x, this->pos.y);
+		printf("\nenemy: X:%f,Y:%f,Z:%f\n", this->pos.x, this->pos.y,this->pos.z);
+		printf("player: X:%f,Y:%f,Z:%f\n", target->pos.x,target->pos.y,target->pos.z);
 		this->pos =
-			Vector3Add(
-				(Vector3Scale(
-					Vector3Scale(
-						Vector3Normalize(Vector3Subtract(this->pos, target->pos)),
+			Vector3Add(//add movement to position
+				(Vector3Scale(//account for frame rate
+					Vector3Scale(//apply move speed
+						Vector3Normalize(//normalise distance to constant magnitude to get direction vector
+							Vector3Subtract(
+								this->pos,
+								target->pos)
+						),
 						this->moveSpeed
 					),
 					GetFrameTime())),
 				this->pos
 			);
-		printf("X:%f,Y:%f", this->pos.x, this->pos.y);
 	case State::WAIT:
 		this->texture = this->sprites.rest;
 	case State::STUNNED:
 		this->texture = this->sprites.hit;
 	case State::RETREAT:
-		this->texture = this->sprites.moveAnim.at(0);
+		this->texture = this->sprites.moveAnim.at(0);//todo create play animation function
 	default:
 		break;
 	}

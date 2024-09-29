@@ -18,6 +18,7 @@ public:
 	void applyForces(double delta_time);
 	GameObject(Vector3 pos,std::string texture_path);
 	GameObject(Vector3 pos, Texture2D texture);
+	const float textureScale = 2;
 	virtual ~GameObject() = default;
 private:
 	const float maxSpeed = 100;

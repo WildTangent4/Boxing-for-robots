@@ -15,8 +15,12 @@ void RenderManager::render()
 		if (obj->active) {
 			DrawBillboard(*(this->viewport),
 				obj->texture,
-				obj->pos,
-				2,
+				{ 
+					obj->pos.x,
+					obj->pos.y+obj->textureScale/2,//begin the texture at head height
+					obj->pos.z
+				},//draw billboard from the top of the object instead of from its feet
+				obj->textureScale,
 				WHITE);
 		}
 	}

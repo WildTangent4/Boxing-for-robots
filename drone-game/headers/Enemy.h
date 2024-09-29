@@ -34,7 +34,7 @@ private:
 	};
 	State currentState;
 	SpriteSet sprites;
-	float moveSpeed = 0.1;
+	float moveSpeed = 1;
 	float stunTimeRemaining = 0;
 	int health = 1;
 	float aggroDist = 10;
