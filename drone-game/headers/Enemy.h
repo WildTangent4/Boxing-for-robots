@@ -34,9 +34,10 @@ private:
 	};
 	State currentState;
 	SpriteSet sprites;
-	float moveSpeed = 1;
+	float moveSpeed = 2;
 	float stunTimeRemaining = 0;
 	int health = 1;
+	bool debugMode = true;
 	float aggroDist = 10;
 	float attackDist = 2;
 	void adjustAggression();
