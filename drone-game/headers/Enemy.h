@@ -32,6 +32,7 @@ private:
 		STUNNED = 5,//stop all actions after being hit
 		WAIT = 6
 	};
+	Behaviour AIType;
 	State currentState;
 	SpriteSet sprites;
 	float moveSpeed = 2;

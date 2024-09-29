@@ -9,6 +9,7 @@ Enemy::Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviou
 {
 	this->health = health;
 	this->sprites = sprites;
+	this->AIType = behaviourType;
 }
 
 void Enemy::Damage(int amount)
@@ -17,6 +18,18 @@ void Enemy::Damage(int amount)
 	this->currentState = STUNNED;
 	this->texture = this->sprites.hit;
 	this->stunTimeRemaining = 0.2;
+
+	switch (this->AIType) {
+	case Behaviour::AGGRESSIVE:
+		this->aggressionLevel = 0.5;
+		break;
+	case Behaviour::BALANCED:
+		this->aggressionLevel = 0;
+		break;
+	default:
+		this->aggressionLevel = 0;
+	}
+
 	if (this->health<=0){
 		this->active = false;
 	}
@@ -83,6 +96,20 @@ void Enemy::applyState(GameObject* target)
 		break;
 	case RETREAT:
 		this->texture = this->sprites.moveAnim.at(0);//todo create play animation function
+		this->pos =
+			Vector3Add(//add movement to position
+				(Vector3Scale(//account for frame rate
+					Vector3Scale(//apply move speed
+						Vector3Normalize(//normalise distance to constant magnitude to get direction vector
+							Vector3Subtract(
+								this->pos,
+								target->pos)
+						),
+						this->moveSpeed
+					),
+					GetFrameTime())),
+				this->pos
+			);
 		break;
 	}
 }
@@ -97,7 +124,7 @@ Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
 	}
 
 	//if player is visible but not in fighting range, approach
-	if (Vector3Distance(playerPos, this->pos) < this->aggroDist && Vector3Distance(playerPos, this->pos) > this->attackDist && ! Vector3Distance(playerPos, this->pos) < this->attackDist) {
+	if (Vector3Distance(playerPos, this->pos) < this->aggroDist && Vector3Distance(playerPos, this->pos) > this->attackDist && ! Vector3Distance(playerPos, this->pos) < this->attackDist &&  this->aggressionLevel > 0.4) {
 		if (this->debugMode) { printf("state is PUSH\n"); }
 		return State::PUSH;
 	}
