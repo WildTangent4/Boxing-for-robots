@@ -36,12 +36,12 @@ int main()
 
 
     SpriteSet testEnemySprites;
-    testEnemySprites.rest = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.rest = LoadTexture("../../../resources/temp Enemy rest.png");
     testEnemySprites.hit = LoadTexture("../../../resources/temp enemy hit.png");
-    testEnemySprites.block = LoadTexture("../../../resources/temp enemy.png");
-    testEnemySprites.punch_heavy = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.block = LoadTexture("../../../resources/temp enemy block.png");
+    testEnemySprites.punch_heavy = LoadTexture("../../../resources/temp enemy punch.png");
     testEnemySprites.punch_light = LoadTexture("../../../resources/temp enemy.png");
-    testEnemySprites.moveAnim.push_back(LoadTexture("../../../resources/temp enemy.png"));
+    testEnemySprites.moveAnim.push_back(LoadTexture("../../../resources/temp enemy walk.png"));
 
     phys.simulate();
     // Main game loop
