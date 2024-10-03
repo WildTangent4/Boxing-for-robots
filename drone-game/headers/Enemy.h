@@ -45,6 +45,7 @@ private:
 	float punchCharge = 0;
 	float punchWindUpTimeS = 1;//enemy takes this long to do the punch
 	float punchLingerTimeS = 0.3;//enemy stays in punch animation for this long after doing the actual punch
+	float timeSinceLastPunch = 0.0;
 	void adjustAggression();
 	void applyState(GameObject* target);
 	State findNextAction(Behaviour type,GameObject * player);
