@@ -6,6 +6,7 @@ struct SpriteSet {
 	float moveAnimLength = 1;
 	Texture2D block;
 	Texture2D punch_light;
+	std::vector<Texture2D> punch_heavy_wind;
 	Texture2D punch_heavy;
 	Texture2D hit;
 };

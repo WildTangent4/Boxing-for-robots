@@ -39,14 +39,17 @@ int main()
     testEnemySprites.rest = LoadTexture("../../../resources/temp Enemy rest.png");
     testEnemySprites.hit = LoadTexture("../../../resources/temp enemy hit.png");
     testEnemySprites.block = LoadTexture("../../../resources/temp enemy block.png");
-    testEnemySprites.punch_heavy = LoadTexture("../../../resources/temp enemy punch.png");
     testEnemySprites.punch_light = LoadTexture("../../../resources/temp enemy.png");
+    testEnemySprites.punch_heavy=LoadTexture("../../../resources/temp enemy punch.png");
+
+    testEnemySprites.punch_heavy_wind.push_back(LoadTexture("../../../resources/temp enemy wind 1.png"));
+    testEnemySprites.punch_heavy_wind.push_back(LoadTexture("../../../resources/temp enemy wind 2.png"));
     testEnemySprites.moveAnim.push_back(LoadTexture("../../../resources/temp enemy walk.png"));
 
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,0,1 };
-    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::TEST);
+    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::BALANCED);
     vector<Enemy*> allEnemies;
     allEnemies.push_back(&test_object);
     phys.addObject(&test_object);

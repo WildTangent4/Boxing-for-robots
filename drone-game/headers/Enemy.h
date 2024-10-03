@@ -30,7 +30,8 @@ private:
 		PUSH = 3,//move to get into a position to attack the player
 		PUNCH = 4,//attack the player
 		STUNNED = 5,//stop all actions after being hit
-		WAIT = 6
+		WAIT = 6,
+		READY_PUNCH = 7//wind up a punch. changes sprite based on punch charge
 	};
 	Behaviour AIType;
 	State currentState;
@@ -41,6 +42,9 @@ private:
 	bool debugMode = true;
 	float aggroDist = 10;
 	float attackDist = 2;
+	float punchCharge = 0;
+	float punchWindUpTimeS = 1;//enemy takes this long to do the punch
+	float punchLingerTimeS = 0.3;//enemy stays in punch animation for this long after doing the actual punch
 	void adjustAggression();
 	void applyState(GameObject* target);
 	State findNextAction(Behaviour type,GameObject * player);
