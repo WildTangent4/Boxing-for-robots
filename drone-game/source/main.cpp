@@ -58,7 +58,7 @@ int main()
         playerController.applyGameTick(phys.getObjects());
         for each (Enemy* enemy in allEnemies)
         {
-            enemy->RunAI(Enemy::BALANCED,&player);
+            enemy->RunAI(Enemy::AGGRESSIVE,&player);
         }
         BeginDrawing();
         BeginMode3D(cam);

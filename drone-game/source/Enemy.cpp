@@ -66,6 +66,7 @@ void Enemy::applyState(GameObject* target)
 		break;
 	case PUNCH:
 		this->texture = this->sprites.punch_heavy;
+		this->aggressionLevel = this->AIType == AGGRESSIVE ? 0.5 : 0;
 		break;
 		//hit target
 		//todo make hit function for player - probably worth creating a class "damagable" that enemy and player inherit from
