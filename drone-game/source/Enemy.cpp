@@ -35,7 +35,7 @@ void Enemy::Damage(int amount)
 	}
 }
 
-void Enemy::RunAI(Behaviour type,GameObject* player)
+void Enemy::RunAI(GameObject* player)
 {
 	this->stunTimeRemaining = this->stunTimeRemaining - GetFrameTime();
 	if (this->stunTimeRemaining <= 0) {
@@ -44,7 +44,7 @@ void Enemy::RunAI(Behaviour type,GameObject* player)
 		}
 		
 		adjustAggression();
-		this->currentState = findNextAction(type,player);
+		this->currentState = findNextAction(this->AIType,player);
 		this->texture = this->sprites.rest;
 		applyState(player);
 	}
@@ -156,7 +156,7 @@ Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
 	}
 	
 	//if the enemy is about to punch, lower block to give player time to react
-	else if (Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.6) {
+	else if (Vector3Distance(playerPos, this->pos) < this->aggroDist && this->aggressionLevel > 0.8) {
 		if (this->debugMode) { printf("state is READY_PUNCH (charge: %f)\n",this->punchCharge); }
 		return State::READY_PUNCH;
 	}

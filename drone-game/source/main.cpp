@@ -49,7 +49,7 @@ int main()
     phys.simulate();
     // Main game loop
     Vector3 test_pos = { 1,0,1 };
-    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::BALANCED);
+    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::AGGRESSIVE);
     vector<Enemy*> allEnemies;
     allEnemies.push_back(&test_object);
     phys.addObject(&test_object);
@@ -61,7 +61,7 @@ int main()
         playerController.applyGameTick(phys.getObjects());
         for each (Enemy* enemy in allEnemies)
         {
-            enemy->RunAI(Enemy::AGGRESSIVE,&player);
+            enemy->RunAI(&player);
         }
         BeginDrawing();
         BeginMode3D(cam);

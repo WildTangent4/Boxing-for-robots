@@ -17,7 +17,7 @@ public:
 	bool canBeDamaged() override;
 	Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType);
 	void Damage(int amount);
-	void RunAI(Behaviour type,GameObject* player);
+	void RunAI(GameObject* player);
 private:
 	//float from 0 to 1, 1 being max agression, 0 being minimum, the ai will attack if the aggression value is high
 	float aggressionLevel = 0;
