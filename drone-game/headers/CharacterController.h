@@ -18,12 +18,14 @@ private:
 	enum armState {
 		BLOCK = 1,
 		REST = 2,
-		PUNCH = 3
+		PUNCH = 3,
+		RETURNING_TO_BLOCK = 4
 	};
 
 	float punchCooldown = 0.1;
 	float timeSinceLastLeftPunch = INFINITY;
 	float timeSinceLastRightPunch = INFINITY;
+	float posture = 0; 
 
 	armState leftArmState = REST;
 	armState rightArmState = REST;

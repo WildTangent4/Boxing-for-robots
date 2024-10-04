@@ -62,10 +62,13 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 
 	if (IsKeyDown(KEY_LEFT_SHIFT)) {
 		if (this->timeSinceLastLeftPunch > punchCooldown) {
-			this->leftArmState = BLOCK;
+			this->leftArmState = this->posture >= 1 ? BLOCK : RETURNING_TO_BLOCK;
+			if (this->posture < 1) {
+				this->posture = this->posture + GetFrameTime();
+			}
 		}
 		if (this->timeSinceLastRightPunch > punchCooldown) {
-			this->rightArmState = BLOCK;
+			this->rightArmState = this->posture>=1 ? BLOCK : RETURNING_TO_BLOCK;
 		}
 	}
 }
@@ -145,7 +148,8 @@ void CharacterController::renderUI(Camera3D & camera)
 	case PUNCH:
 		DrawTexture(this->l_punch, 0,0 , WHITE);
 		break;
-	default:
+	case RETURNING_TO_BLOCK:
+		DrawTexture(this->l_block, 0, (1 / this->posture) * 10, WHITE);
 		break;
 	}
 
@@ -161,7 +165,8 @@ void CharacterController::renderUI(Camera3D & camera)
 	case PUNCH:
 		DrawTexture(this->r_punch, 0, 0, WHITE);
 		break;
-	default:
+	case RETURNING_TO_BLOCK:
+		DrawTexture(this->r_block, 0, (1 / this->posture) * 10, WHITE);
 		break;
 	}
 	EndTextureMode();
