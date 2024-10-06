@@ -1,6 +1,6 @@
 #include "../headers/GameObject.h"
 #include "raymath.h"
-bool GameObject::canBeDamaged()
+bool GameObject::canBeDamaged() const
 {
 	return false;
 }

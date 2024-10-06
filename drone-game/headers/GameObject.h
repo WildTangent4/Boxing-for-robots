@@ -5,7 +5,7 @@
 
 class GameObject{
 public:
-	virtual bool canBeDamaged();
+	virtual bool canBeDamaged() const;
 	bool active = true;
 	Texture2D texture;
 	int direction = 0;

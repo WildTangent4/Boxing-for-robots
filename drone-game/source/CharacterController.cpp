@@ -34,7 +34,7 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 		this->rightArmState = PUNCH;
 		std::vector<Enemy*> targets = getTargetableObjects(objects,5);
 		for (Enemy* target : targets) {
-			target->Damage(1);
+			target->damage(1);
 		}
 	}
 	else {	//end the last punch if the cooldown is complete
@@ -50,7 +50,7 @@ void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 		this->leftArmState = PUNCH;
 		std::vector<Enemy*> targets = getTargetableObjects(objects, 5);
 		for (Enemy* target : targets) {
-			target->Damage(1);
+			target->damage(1);
 		}
 	}
 	else {	//end the last punch if the cooldown is complete

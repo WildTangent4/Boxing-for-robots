@@ -4,7 +4,8 @@
 #include "SpriteSet.h"
 #include <string>
 #include "raymath.h"
-class Enemy : public GameObject {
+#include "Damagable.h"
+class Enemy : public GameObject, public Damagable {
 public:
 	enum Behaviour {
 		AGGRESSIVE = 1,
@@ -14,10 +15,10 @@ public:
 		SHORT_TEMPER = 5, 
 		TEST = 6
 	};
-	bool canBeDamaged() override;
-	Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType);
-	void Damage(int amount);
+	Enemy(int health, Vector3 position, SpriteSet sprites, Enemy::Behaviour behaviourType);
+	bool Damagable::damage(int amount);
 	void RunAI(GameObject* player);
+	bool canBeDamaged() const override;
 private:
 	//float from 0 to 1, 1 being max agression, 0 being minimum, the ai will attack if the aggression value is high
 	float aggressionLevel = 0;
