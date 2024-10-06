@@ -9,6 +9,8 @@ Enemy::Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviou
 
 bool Enemy::damage(int amount)
 {
+	this->Damagable::health = this->Damagable::health - amount;
+	
 	this->currentState = Enemy::STUNNED;
 	this->GameObject::texture = this->sprites.hit;
 	this->stunTimeRemaining = 0.2;
@@ -24,7 +26,7 @@ bool Enemy::damage(int amount)
 		this->aggressionLevel = 0;
 	}
 	
-	bool defeated = this->health <= 0;
+	bool defeated = this->Damagable::health <= 0;
 
 	if (defeated){
 		this->GameObject::active = false;
