@@ -75,8 +75,6 @@ int main()
 
         player.update(phys.getObjects());
 
-        DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
-        //test_object.active = false;
         EndDrawing();
     }
 

@@ -21,4 +21,5 @@ void Player::update(std::vector<GameObject*> objects)
 {
 	this->inputController->applyGameTick(objects);
 	this->inputController->renderUI(this->cam);
+	this->interfaceController.renderUI(this->cam);
 }

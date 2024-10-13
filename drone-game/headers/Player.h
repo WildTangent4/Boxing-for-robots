@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "UIController.h"
 #include "raylib.h"
 #include "rcamera.h"
 #include <vector>
@@ -8,6 +9,7 @@ class CharacterController;//forward declaration avoids circular include from ene
 
 class Player {
 	Camera3D cam;
+	UIController interfaceController;
 	CharacterController* inputController;
 	int health;
 public:
