@@ -11,7 +11,7 @@ void PhysicsManager::runTickForAllObjects() {
 	this->previous_tick_end = std::chrono::high_resolution_clock::now();
 	double delta = std::chrono::duration<double,std::milli>(this->previous_tick_end-this->previous_tick_start).count();
 	this->previous_tick_start = std::chrono::high_resolution_clock::now();
-	for (GameObject* x : this->objects)//note: if you ever have a bug where positions are not correctly updating on each physics tick, check if objects are stored and accessed by reference here
+	for (GameObject* x : this->objects)
 	{
 		if (x->active) {
 			applyTick(x, delta);

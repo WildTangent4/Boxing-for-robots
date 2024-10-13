@@ -10,7 +10,6 @@ void GameObject::applyForces(double delta_time) {
 	Vector3 new_velocity= Vector3Add(this->velocity, this->force);
 	this->velocity = new_velocity;
 	double time_scale = delta_time / 2000;
-	//printf("\n%f", time_scale);
 	Vector3 scaled_velocity =  Vector3Scale(Vector3Add(this->velocity,this->force), time_scale);
 	
 	//reset force for next tick

@@ -10,7 +10,6 @@
 
 class CharacterController {
 public:
-	CharacterController();//default constructor only use for temporary intialisation
 	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick(std::vector<GameObject*> objects);
 	void renderUI(Camera3D &camera);
@@ -44,6 +43,9 @@ private:
 	float lastXangle = 0;
 	float lastYangle = 0;
 
+	float moveSpeed = 0.2;
+	float playerHeight = 2;
+
 	GameObject* player;
 	Camera3D* camera;
 	double coyoteTime = 0;
@@ -60,13 +62,11 @@ private:
 	void applyMoveInputsToPlayerObject();
 	void applyJumpInputs();
 
-	
-
 	std::vector<GameObject*> getNearObjects(std::vector<GameObject*> objects,float range);
 	std::vector<Enemy*> getTargetableObjects(std::vector<GameObject*> objects, float range);
 
 	static bool isInView(GameObject* object, GameObject* player, Camera3D* camera);
 
-	//rotates point about origin
+	//rotates point about origin NOTE: this function violates SRP, should make a math class to contain methods like this
 	static Vector2 applyRotation(float angle, Vector2 point);
 };

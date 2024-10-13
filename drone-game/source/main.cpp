@@ -13,7 +13,7 @@ using namespace std;
 
 int main()
 {
-    bool enableDrawing = true; //temporary switch to allow turning off raylib for debugging underlying physics
+    bool enableDrawing = true; //switch to allow turning off raylib for debugging underlying physics
 
     //set up screen settings
     const int screenWidth = 800;
@@ -31,10 +31,8 @@ int main()
     cam.projection = CAMERA_PERSPECTIVE;
     RenderManager rend = RenderManager(&cam);
     Player player = Player(5, { 0,0,0 }, cam, GameObject({0,0,0},"none"));
-    //CharacterController playerController = CharacterController(&player,&cam);
-    //simulate physics in seperate thread
-    PhysicsManager phys;
 
+    PhysicsManager phys;
 
     SpriteSet testEnemySprites;
     testEnemySprites.rest = LoadTexture("../../../resources/temp Enemy rest.png");
@@ -60,8 +58,6 @@ int main()
 
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
-        //cam.target = test_object.pos;
-        
         for each (Enemy* enemy in allEnemies)
         {
             enemy->RunAI(&player);

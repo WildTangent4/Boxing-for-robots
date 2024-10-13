@@ -57,7 +57,7 @@ bool Enemy::canBeDamaged() const
 
 void Enemy::adjustAggression()
 {
-	//include features like if player is moving towards enemy (i.e. looks like they might punch or has block lowered)
+	//TODO: include features like if player is moving towards enemy (i.e. looks like they might punch or has block lowered)
 	this->aggressionLevel = this->aggressionLevel +
 		((this->baseAggressionIncreaseRate)*GetFrameTime());
 }

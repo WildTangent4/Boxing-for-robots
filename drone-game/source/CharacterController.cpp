@@ -1,9 +1,5 @@
 #include "../headers/CharacterController.h"
 
-CharacterController::CharacterController()
-{
-}
-
 CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 {
 	this->player = player;
@@ -13,7 +9,7 @@ CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 void CharacterController::applyGameTick(std::vector<GameObject*> objects)
 {
 	applyInputs(objects);
-	//applyQueuedInputs();
+	applyQueuedInputs();
 }
 
 void CharacterController::applyInputs(std::vector<GameObject*> objects)
@@ -31,7 +27,7 @@ void CharacterController::applyQueuedInputs()
 
 void CharacterController::applyAttackInputs(std::vector<GameObject*> objects)
 {
-	//todo add a light attack if the shift key is pressed
+	//TODO: add a light attack if the shift key is pressed
 	
 	//handle right arm	
 	if (IsKeyPressed(KEY_E) && this->timeSinceLastRightPunch>punchCooldown && (this->timeSinceLastLeftPunch > punchCooldown)) {
@@ -82,7 +78,7 @@ void CharacterController::applyCameraInputs()
 {
 	if (IsWindowFocused()) {
 		HideCursor();
-		//rotate camera base on mouse
+		//rotates camera based on the mouse movement from center of screen over the last frame
 		float mouse_sensitivity = 0.003f;
 		Vector2 mousePositionDelta = GetMouseDelta();
 		SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
@@ -90,11 +86,10 @@ void CharacterController::applyCameraInputs()
 		CameraPitch(this->camera, -mousePositionDelta.y * mouse_sensitivity, false, false, false);
 
 		//move camera based on WASD
-		float camera_move_speed = 0.2;//default 0.5
-		if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, camera_move_speed, true);
-		if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -camera_move_speed, true);
-		if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -camera_move_speed, true);
-		if (IsKeyDown(KEY_D)) CameraMoveRight(this->camera, camera_move_speed, true);
+		if (IsKeyDown(KEY_W)) CameraMoveForward(this->camera, this->moveSpeed, true);
+		if (IsKeyDown(KEY_A)) CameraMoveRight(this->camera, -this->moveSpeed, true);
+		if (IsKeyDown(KEY_S)) CameraMoveForward(this->camera, -this->moveSpeed, true);
+		if (IsKeyDown(KEY_D)) CameraMoveRight(this->camera, this->moveSpeed, true);
 	}
 	else {
 		ShowCursor();
@@ -103,9 +98,8 @@ void CharacterController::applyCameraInputs()
 
 void CharacterController::applyMoveInputsToPlayerObject()
 {
-	//double currentCameraRotation = this->camera.
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_A) || IsKeyDown(KEY_S) || IsKeyDown(KEY_D)) {
-		this->player->pos = { this->camera->position.x, this->camera->position.y - 2,this->camera->position.z }; //update player position (accounting for player height)
+		this->player->pos = { this->camera->position.x, this->camera->position.y - this->playerHeight,this->camera->position.z };
 	}
 }
 
@@ -184,18 +178,15 @@ std::vector<GameObject*> CharacterController::getNearObjects(std::vector<GameObj
 	std::vector<GameObject*> nearObjects;
 	Vector3 playerPos = this->player->pos;
 	std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(nearObjects), [playerPos,range](GameObject* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
-	printf("detected %I64u obejcts in range\n", nearObjects.size());
+	printf("detected %I64u obejcts in hurt box\n", nearObjects.size());
 	return nearObjects;
 }
 
 std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameObject*> objects, float range)
 {
-	//todo:rename enemy to something like "damagable" and have the enemy class inherit from that (this lets you have destructible scenery)
 	std::vector<Enemy*> enemies;
 	Vector3 playerPos = this->player->pos;
-	//std::copy_if(std::begin(objects), std::end(objects), std::back_inserter(enemies), [](GameObject* obj) {return obj->canBeDamaged; });//TODO make range specific to equipped weapon
 	for (GameObject* obj : objects) {
-		//printf("found an object", enemies.size());
 		if (obj->canBeDamaged()) {
 			Enemy* enemy = dynamic_cast<Enemy*>(obj);
 			if (enemy != nullptr) {
@@ -203,15 +194,9 @@ std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameOb
 			}
 		}
 	}
-	//printf("detected %I64u enemies in play\n", enemies.size());
 
-
-	//std::vector<Enemy*> nearEnemies;
-	//std::copy_if(std::begin(enemies), std::end(enemies), std::back_inserter(nearEnemies), [playerPos, range](Enemy* obj) {return Vector3Distance(playerPos, obj->pos) < range; });//TODO make range specific to equipped weapon
-	//printf("detected %I64u enemies in range\n", nearEnemies.size());
 
 	std::vector<Enemy*> targetedEnemies;
-	//printf("copying \n");
 
 	GameObject* player = this->player;
 	Camera3D* camera = this->camera;
@@ -239,7 +224,6 @@ bool CharacterController::isInView(GameObject* object, GameObject* player, Camer
 
 Vector2 CharacterController::applyRotation(float angle, Vector2 point)
 {
-	//printf("running applyRotation\n");
 	double rotationMatrix[2][2] = {
 		{ cos(angle) , -sin(angle) },
 		{ sin(angle) , cos(angle)  }
@@ -250,7 +234,6 @@ Vector2 CharacterController::applyRotation(float angle, Vector2 point)
 		point.x * rotationMatrix[1][0] + point.y * rotationMatrix[1][1]
 	};
 
-	//printf("rotated a point\n");
 	return rotatedPoint;
 }
 

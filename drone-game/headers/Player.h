@@ -15,7 +15,6 @@ class Player {
 public:
 	Player(int health, Vector3 position, Camera3D& cam,GameObject& baseObject);
 	void update(std::vector<GameObject*> objects);
-	bool damage(int amount);//note this is note the Damagable class method being overriden, player is a special case because of the project structure
+	bool damage(int amount);//note this is NOT the Damagable class method being overriden, player is a special case because of the project structure
 	GameObject* obj;
-	//TODO make UI controller class
 };

@@ -7,7 +7,7 @@
 #include <chrono>
 #include "GameObject.h"
 class PhysicsManager {
-	//note: using atomic means custom move, copy and delete constructors need to be created
+	//note: using atomic means custom move, copy and delete constructors need to be created but since they are never used they are all set to = delete right now;
 	std::atomic<bool> physicsPaused = false;
 	std::atomic<bool> gameIsRunning = true;
 	std::chrono::steady_clock::time_point previous_tick_start = std::chrono::high_resolution_clock::now();
