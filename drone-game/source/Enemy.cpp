@@ -1,6 +1,6 @@
 #include "..\headers\Enemy.h"
 
-Enemy::Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType) : GameObject(position, sprites.rest), Damagable(health)
+Enemy::Enemy(int health, Vector3 position, SpriteSet sprites, Behaviour behaviourType, bool debug) : GameObject(position, sprites.rest), Damagable(health), debugMode(debug)
 {
 	this->health = health;
 	this->sprites = sprites;
@@ -34,7 +34,7 @@ bool Enemy::damage(int amount)
 	return defeated;
 }
 
-void Enemy::RunAI(GameObject* player)
+void Enemy::RunAI(Player* player)
 {
 	this->stunTimeRemaining = this->stunTimeRemaining - GetFrameTime();
 	if (this->stunTimeRemaining <= 0) {
@@ -62,7 +62,7 @@ void Enemy::adjustAggression()
 		((this->baseAggressionIncreaseRate)*GetFrameTime());
 }
 
-void Enemy::applyState(GameObject* target)
+void Enemy::applyState(Player* target)
 {
 	switch (this->currentState)
 	{
@@ -72,10 +72,11 @@ void Enemy::applyState(GameObject* target)
 	case PUNCH:
 		this->GameObject::texture = this->sprites.punch_heavy;
 		this->aggressionLevel = this->AIType == AGGRESSIVE ? 0.5 : 0;
-		if (timeSinceLastPunch < punchLingerTimeS) {
+		if (timeSinceLastPunch < punchLingerTimeS) {//if ensures that punch lingers for a set number of seconds
 			this->timeSinceLastPunch = this->timeSinceLastPunch + GetFrameTime();
 		}
-		else {
+		else {//run only on the first frame of the attack
+			target->damage(1);
 			this->punchCharge = 0;
 			this->timeSinceLastPunch = 0;
 		}
@@ -92,7 +93,7 @@ void Enemy::applyState(GameObject* target)
 					Vector3Scale(//apply move speed
 						Vector3Normalize(//normalise distance to constant magnitude to get direction vector
 							Vector3Subtract(
-								target->pos,
+								target->obj->pos,
 								this->GameObject::pos)
 						),
 						this->moveSpeed
@@ -116,7 +117,7 @@ void Enemy::applyState(GameObject* target)
 						Vector3Normalize(//normalise distance to constant magnitude to get direction vector
 							Vector3Subtract(
 								this->GameObject::pos,
-								target->pos)
+								target->obj->pos)
 						),
 						this->moveSpeed
 					),
@@ -136,9 +137,9 @@ void Enemy::applyState(GameObject* target)
 	}
 }
 
-Enemy::State Enemy::findNextAction(Behaviour type, GameObject* player)
+Enemy::State Enemy::findNextAction(Behaviour type, Player* player)
 {
-	Vector3 playerPos = player->pos;
+	Vector3 playerPos = player->obj->pos;
 
 	if (this->currentState == State::STUNNED) {
 		if (this->debugMode) { printf("state is STUNNED\n"); }

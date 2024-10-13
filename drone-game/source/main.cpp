@@ -6,6 +6,7 @@
 #include "../headers/CharacterController.h"
 #include "../headers/Enemy.h"
 #include "../headers/SpriteSet.h"
+#include "../headers/Player.h"
 #include <raylib.h>
 #include <iostream>
 using namespace std;
@@ -29,8 +30,8 @@ int main()
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
     RenderManager rend = RenderManager(&cam);
-    GameObject player = GameObject({0,0,0},"none");//todo: create character class that handles rendering differently
-    CharacterController playerController = CharacterController(&player,&cam);
+    Player player = Player(5, { 0,0,0 }, cam, GameObject({0,0,0},"none"));
+    //CharacterController playerController = CharacterController(&player,&cam);
     //simulate physics in seperate thread
     PhysicsManager phys;
 
@@ -48,17 +49,19 @@ int main()
 
     phys.simulate();
     // Main game loop
-    Vector3 test_pos = { 1,0,1 };
-    Enemy test_object = Enemy(10,test_pos, testEnemySprites,Enemy::AGGRESSIVE);
+    
     vector<Enemy*> allEnemies;
+    
+    Vector3 test_pos = { 1,0,1 };
+    Enemy test_object = Enemy(10, test_pos, testEnemySprites, Enemy::AGGRESSIVE);
     allEnemies.push_back(&test_object);
     phys.addObject(&test_object);
     rend.addObject(test_object);
+
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
         //cam.target = test_object.pos;
         
-        playerController.applyGameTick(phys.getObjects());
         for each (Enemy* enemy in allEnemies)
         {
             enemy->RunAI(&player);
@@ -69,7 +72,9 @@ int main()
         rend.render();
         ClearBackground(RAYWHITE);
         EndMode3D();
-        playerController.renderUI(cam);
+
+        player.update(phys.getObjects());
+
         DrawText("PLACEHOLDER UI", 190, 200, 20, LIGHTGRAY);
         //test_object.active = false;
         EndDrawing();

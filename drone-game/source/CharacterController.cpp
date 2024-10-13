@@ -1,5 +1,9 @@
 #include "../headers/CharacterController.h"
 
+CharacterController::CharacterController()
+{
+}
+
 CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 {
 	this->player = player;
@@ -9,7 +13,7 @@ CharacterController::CharacterController(GameObject* player, Camera3D* cam)
 void CharacterController::applyGameTick(std::vector<GameObject*> objects)
 {
 	applyInputs(objects);
-	applyQueuedInputs();
+	//applyQueuedInputs();
 }
 
 void CharacterController::applyInputs(std::vector<GameObject*> objects)
@@ -18,6 +22,7 @@ void CharacterController::applyInputs(std::vector<GameObject*> objects)
 	applyAttackInputs(objects);
 	applyCameraInputs();
 	applyJumpInputs();
+
 }
 
 void CharacterController::applyQueuedInputs()
@@ -192,7 +197,10 @@ std::vector<Enemy*> CharacterController::getTargetableObjects(std::vector<GameOb
 	for (GameObject* obj : objects) {
 		//printf("found an object", enemies.size());
 		if (obj->canBeDamaged()) {
-			enemies.push_back(dynamic_cast<Enemy*>(obj));
+			Enemy* enemy = dynamic_cast<Enemy*>(obj);
+			if (enemy != nullptr) {
+				enemies.push_back(enemy);
+			}
 		}
 	}
 	//printf("detected %I64u enemies in play\n", enemies.size());

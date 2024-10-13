@@ -5,6 +5,10 @@
 #include <string>
 #include "raymath.h"
 #include "Damagable.h"
+#include "Player.h"
+
+
+
 class Enemy : public GameObject, public Damagable {
 public:
 	enum Behaviour {
@@ -15,9 +19,10 @@ public:
 		SHORT_TEMPER = 5, 
 		TEST = 6
 	};
-	Enemy(int health, Vector3 position, SpriteSet sprites, Enemy::Behaviour behaviourType);
+	
+	Enemy(int health, Vector3 position, SpriteSet sprites, Enemy::Behaviour behaviourType, bool debug = false);
 	bool Damagable::damage(int amount);
-	void RunAI(GameObject* player);
+	void RunAI(Player* player);
 	bool canBeDamaged() const override;
 private:
 	//float from 0 to 1, 1 being max agression, 0 being minimum, the ai will attack if the aggression value is high
@@ -48,6 +53,6 @@ private:
 	float punchLingerTimeS = 0.3;//enemy stays in punch animation for this long after doing the actual punch
 	float timeSinceLastPunch = 0.0;
 	void adjustAggression();
-	void applyState(GameObject* target);
-	State findNextAction(Behaviour type,GameObject * player);
+	void applyState(Player* target);
+	State findNextAction(Behaviour type,Player * player);
 };

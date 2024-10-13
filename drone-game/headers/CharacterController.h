@@ -8,13 +8,14 @@
 #include <raymath.h>
 
 
-
 class CharacterController {
 public:
+	CharacterController();//default constructor only use for temporary intialisation
 	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick(std::vector<GameObject*> objects);
 	void renderUI(Camera3D &camera);
 private:
+
 	enum armState {
 		BLOCK = 1,
 		REST = 2,
