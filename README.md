@@ -8,7 +8,17 @@ use W,A,S and, D for movement; Left Shift to block; Q to punch with the left arm
 
 ## Disclaimer
 Currently the game is in a very WIP state, this means that:
-AI is not fully implemented
+<ul>
+  <li>
+  AI is not fully implemented
+  </li>
+  <li>
 There is no game over screen
-The main Gameplay loop is not implemented
+  </li>
+  <li>
+The main Gameplay loop is not implemented\n
+  </li>
+  <li>
 There are some partially complete features that do not work as intended
+  </li>
+</ul>
