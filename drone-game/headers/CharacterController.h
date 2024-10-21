@@ -45,7 +45,7 @@ private:
 	Texture2D l_rest = LoadTexture("../../../resources/L_rest.png");
 	Texture2D l_punch = LoadTexture("../../../resources/L_punch.png");
 
-	float lastXangle = 0;
+	float lastAngle = 0;
 	float lastYangle = 0;
 
 	float moveSpeed = 0.2;

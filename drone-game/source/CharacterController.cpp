@@ -136,18 +136,21 @@ void CharacterController::renderArms(Camera3D & camera)
 	float scaleX = screenWidth / this->r_block.width;
 	float scaleY = screenHeight / this->r_block.height;
 
-	//lerp UI pos to camera movement
+	//bob arms in Y axis according to the sin of the distance from 0,0
 	float bobDampingStrength = 0.1;
 	float bobMovementScaleX = 70;
 	float bobMovementScaleY = 20;
 	float bobMovementFrequency = 0.5;
 	float posY = 1-sin(sqrt(pow(player->pos.x,2)+pow(player->pos.y,2)) * bobMovementFrequency );
 	
-	//float currentYangle = atan2(,camera.target.y;
-	float currentXangle = atan2(camera.target.x-player->pos.x,camera.target.y - player->pos.y);
-	float camMovementX = currentXangle - lastXangle;
-
-	float posX = Lerp(0,camMovementX,bobDampingStrength);
+	//broken right now
+	float currentAngle = Vector3Angle(player->pos, GetCameraForward(&camera));
+	//find the angle in degrees from the player is around 
+	//float currentXangle = atan2(camera.target.x-player->pos.x,camera.target.y - player->pos.y);
+	//float camMovementX = currentAngle - this->lastAngle;
+	//this->lastAngle = currentAngle;
+	//printf("%f\n", GetCameraViewMatrix(&camera).m0);
+	float posX = 0;//Lerp(0,camMovementX,bobDampingStrength);
 	
 
 	Rectangle source = { 0,-screenHeight, screenWidth,-screenHeight };
