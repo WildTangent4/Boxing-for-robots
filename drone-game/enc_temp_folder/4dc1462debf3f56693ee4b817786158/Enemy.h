@@ -22,7 +22,7 @@ public:
 	
 	Enemy(int health, Vector3 position, SpriteSet sprites, Enemy::Behaviour behaviourType, bool debug = false);
 	bool Damagable::damage(int amount);
-	void RunAI(Player* player,bool randomMode);
+	void RunAI(Player* player);
 	bool canBeDamaged() const override;
 private:
 	//float from 0 to 1, 1 being max agression, 0 being minimum, the ai will attack if the aggression value is high

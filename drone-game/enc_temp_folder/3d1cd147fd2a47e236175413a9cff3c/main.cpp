@@ -61,7 +61,7 @@ int main()
         if (!gameOver) {
             for each (Enemy * enemy in allEnemies)
             {
-                enemy->RunAI(&player,true);
+                enemy->RunAI(&player);
             }
         }
 

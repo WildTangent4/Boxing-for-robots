@@ -34,7 +34,7 @@ bool Enemy::damage(int amount)
 	return defeated;
 }
 
-void Enemy::RunAI(Player* player,bool randomMode)
+void Enemy::RunAI(Player* player)
 {
 	this->stunTimeRemaining = this->stunTimeRemaining - GetFrameTime();
 	if (this->stunTimeRemaining <= 0) {
