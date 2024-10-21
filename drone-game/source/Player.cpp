@@ -25,8 +25,9 @@ Player::Player(int health, Vector3 position,Camera3D& cam, GameObject& baseObjec
 
 void Player::update(std::vector<GameObject*> objects)
 {
+	
 	this->inputController->renderArms(this->cam);
-	this->interfaceController.renderUI(this->cam);
+	this->interfaceController.renderUI(this->cam, this->health);
 
 	if (this->obj->active) {
 		this->inputController->applyGameTick(objects);
