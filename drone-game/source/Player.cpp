@@ -3,9 +3,14 @@
 
 bool Player::damage(int amount)
 {
-	this->health = this->health - amount;
 
-	this->inputController->setPosture(0);
+	if (this->inputController->isBlocking()) {
+		this->inputController->setPosture(0);
+	}
+	else {
+		this->health = this->health - amount;
+	}
+	
 
 	bool defeated = this->health <= 0;
 	
@@ -13,6 +18,7 @@ bool Player::damage(int amount)
 		this->obj->active = false;
 		printf("player was defeated");
 	}
+
 	return defeated;
 }
 
