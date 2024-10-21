@@ -8,7 +8,7 @@ void UIController::renderUI(Camera3D& cam,int health)
 		DrawText(std::to_string(health).c_str(), 50, 50, 30, BLACK);
 	}
 	else {
-		int textHeight = 40;
+		int textHeight = 50;
 		std::string text = "YOU DIED ";
 		int textLength = text.size();
 		int textWidth = textLength * (textHeight / 7) * 5; //font is 7x5 max

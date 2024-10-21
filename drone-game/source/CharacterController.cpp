@@ -117,6 +117,11 @@ float CharacterController::getPosture()
 	return this->posture;
 }
 
+bool CharacterController::isPunching()
+{
+	return this->rightArmState==PUNCH || this->leftArmState==PUNCH;
+}
+
 bool CharacterController::isBlocking()
 {
 	return this->leftArmState==BLOCK && this->rightArmState==BLOCK && this->posture>0.5;

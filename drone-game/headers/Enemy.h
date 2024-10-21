@@ -6,8 +6,11 @@
 #include "raymath.h"
 #include "Damagable.h"
 #include "Player.h"
-
-
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <random>
+#include <vector>
 
 class Enemy : public GameObject, public Damagable {
 public:
@@ -55,4 +58,26 @@ private:
 	void adjustAggression();
 	void applyState(Player* target);
 	State findNextAction(Behaviour type,Player * player);
+
+	float maxReactionTime = 0.25;
+	float minReactionTime = 0.1;
+
+	State findNextActionRandom(Behaviour type, Player* player);
+
+	//reactions to events that happen outside of this class
+	std::vector<State> playerIsPunchingResponse = { RETREAT , READY_PUNCH , BLOCK };
+	std::vector<State> playerIsBlockingResponse = { RETREAT , READY_PUNCH , BLOCK };
+	std::vector<State> playerIsLowPostureResponse = { PUSH , READY_PUNCH };
+	std::vector<State> playerIsApproachingResponse = { RETREAT , READY_PUNCH , BLOCK };
+
+	std::vector<State> playerIsNotInterestingResponse = { PUSH };//player isnt doing anything
+
+
+	Vector3 lastPlayerPos = { 0,0,0 };
+
+	//reactions to events which happen from within this class
+	State getReactionToPlayerActions(Player* player);
+	State getReactionToOwnActions(Player* player);
+	std::vector<State> thisGotPunchedResponse = { RETREAT , READY_PUNCH , BLOCK };
+	std::vector<State> thisPunchedPlayerResponse = { READY_PUNCH , BLOCK };
 };

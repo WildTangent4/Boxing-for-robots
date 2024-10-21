@@ -14,8 +14,11 @@ class Player {
 	int health;
 public:
 	Player(int health, Vector3 position, Camera3D& cam,GameObject& baseObject);
-
+	
 	//updates UI, movement and inputs, returns if player is still alive
+	bool isBlocking();
+	bool isPunching();
+	float getPosture();
 	bool update(std::vector<GameObject*> objects);
 	bool damage(int amount);//note this is NOT the Damagable class method being overriden, player is a special case because of the project structure
 	GameObject* obj;

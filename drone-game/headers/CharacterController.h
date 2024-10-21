@@ -16,7 +16,7 @@ public:
 
 	void setPosture(float newPosture);
 	float getPosture();
-
+	bool isPunching();
 	bool isBlocking();
 private:
 

@@ -41,10 +41,15 @@ void Enemy::RunAI(Player* player,bool randomMode)
 		if (this->currentState == State::STUNNED) {
 			this->currentState = State::WAIT;
 		}
-		
-		this->adjustAggression();
-		this->currentState = findNextAction(this->AIType,player);
-		this->GameObject::texture = this->sprites.rest;
+		if (randomMode) {
+			this->currentState = findNextActionRandom(this->AIType,player);
+		}
+		else {
+			this->adjustAggression();
+			this->currentState = findNextAction(this->AIType, player);
+			this->GameObject::texture = this->sprites.rest;
+
+		}
 		this->applyState(player);
 	}
 	
@@ -182,4 +187,37 @@ Enemy::State Enemy::findNextAction(Behaviour type, Player* player)
 	}
 }
 
+//perform a reactor to whatever the player did last
+Enemy::State Enemy::getReactionToPlayerActions(Player* player)
+{
+	//determine status of player actions
+	float lastDistanceFromPlayer = Vector3Distance(this->lastPlayerPos, this->pos);
+	float currentDistanceFromPlayer =  Vector3Distance (player->obj->pos,this->pos); 
+	bool playerIsApproaching = lastDistanceFromPlayer > currentDistanceFromPlayer;
+	bool playerIsBlocking = player->isBlocking();
+	bool playerIsLowPosture = player->getPosture() > 0.7;
+	bool playerIsPunching = player->isPunching();
+	
+	//out of the things that the player is doing, select randomly biased by the AI type
 
+	return WAIT;
+}
+
+//perfrom a follow up to whatever the AI did last
+Enemy::State Enemy::getReactionToOwnActions(Player* player)
+{
+	//this is just a getter for a variable that is set on key events like getting stunned
+	return WAIT;
+}
+
+Enemy::State Enemy::findNextActionRandom(Behaviour type, Player* player) {
+	State reactionAction = WAIT;
+	State followUpAction = WAIT;
+
+	//if not mid action
+	reactionAction = getReactionToPlayerActions(player);
+	followUpAction = getReactionToOwnActions(player);
+
+	//GetRandomValue();
+	return WAIT;
+}

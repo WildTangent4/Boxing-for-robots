@@ -27,6 +27,21 @@ Player::Player(int health, Vector3 position,Camera3D& cam, GameObject& baseObjec
 }
 
 
+bool Player::isBlocking()
+{
+	return this->inputController->isBlocking();
+}
+
+bool Player::isPunching()
+{
+	return false;
+}
+
+float Player::getPosture()
+{
+	return this->inputController->getPosture();
+}
+
 bool Player::update(std::vector<GameObject*> objects)
 {
 
