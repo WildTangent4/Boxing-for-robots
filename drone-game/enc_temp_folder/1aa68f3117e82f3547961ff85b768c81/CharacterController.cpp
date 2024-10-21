@@ -117,11 +117,6 @@ float CharacterController::getPosture()
 	return this->posture;
 }
 
-bool CharacterController::isBlocking()
-{
-	return this->leftArmState==BLOCK && this->rightArmState==BLOCK && this->posture>0.5;
-}
-
 void CharacterController::renderArms(Camera3D & camera)
 {
 	float screenHeight = GetScreenHeight();
