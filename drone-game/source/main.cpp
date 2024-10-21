@@ -55,12 +55,14 @@ int main()
     allEnemies.push_back(&test_object);
     phys.addObject(&test_object);
     rend.addObject(test_object);
-
+    bool gameOver = false;
     while (!WindowShouldClose()&&enableDrawing)    // Detect window close button or ESC key
     {
-        for each (Enemy* enemy in allEnemies)
-        {
-            enemy->RunAI(&player);
+        if (!gameOver) {
+            for each (Enemy * enemy in allEnemies)
+            {
+                enemy->RunAI(&player);
+            }
         }
 
         BeginDrawing();
@@ -72,7 +74,7 @@ int main()
 
         EndMode3D();
 
-        player.update(phys.getObjects());
+        gameOver = player.update(phys.getObjects());
 
         EndDrawing();
     }
