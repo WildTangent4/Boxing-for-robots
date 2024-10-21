@@ -6,13 +6,14 @@ bool Player::damage(int amount)
 	this->health = this->health - amount;
 
 	
-	this->inputController->setPosture(this->inputController->getPosture()-0.5);
+	this->inputController->setPosture(0);
 
 
 	bool defeated = this->health <= 0;
 	
 
 	if (defeated) {
+		
 		printf("player was defeated");
 	}
 	return defeated;

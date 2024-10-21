@@ -16,6 +16,8 @@ public:
 
 	void setPosture(float newPosture);
 	float getPosture();
+
+	bool isBlocking();
 private:
 
 	enum armState {
