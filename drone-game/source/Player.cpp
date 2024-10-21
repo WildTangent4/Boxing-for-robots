@@ -5,7 +5,13 @@ bool Player::damage(int amount)
 {
 	this->health = this->health - amount;
 
+	
+	this->inputController->setPosture(this->inputController->getPosture()-0.5);
+
+
 	bool defeated = this->health <= 0;
+	
+
 	if (defeated) {
 		printf("player was defeated");
 	}
@@ -19,7 +25,10 @@ Player::Player(int health, Vector3 position,Camera3D& cam, GameObject& baseObjec
 
 void Player::update(std::vector<GameObject*> objects)
 {
-	this->inputController->applyGameTick(objects);
-	this->inputController->renderUI(this->cam);
+	this->inputController->renderArms(this->cam);
 	this->interfaceController.renderUI(this->cam);
+
+	if (this->obj->active) {
+		this->inputController->applyGameTick(objects);
+	}
 }

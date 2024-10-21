@@ -62,11 +62,14 @@ int main()
         {
             enemy->RunAI(&player);
         }
+
         BeginDrawing();
         BeginMode3D(cam);
+
         DrawGrid(10, 1);
         rend.render();
         ClearBackground(RAYWHITE);
+
         EndMode3D();
 
         player.update(phys.getObjects());

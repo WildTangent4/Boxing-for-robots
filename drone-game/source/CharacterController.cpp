@@ -107,7 +107,17 @@ void CharacterController::applyJumpInputs()
 {
 }
 
-void CharacterController::renderUI(Camera3D & camera)
+void CharacterController::setPosture(float newPosture)
+{
+	this->posture = newPosture;
+}
+
+float CharacterController::getPosture()
+{
+	return this->posture;
+}
+
+void CharacterController::renderArms(Camera3D & camera)
 {
 	float screenHeight = GetScreenHeight();
 	float screenWidth = GetScreenWidth();

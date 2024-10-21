@@ -12,7 +12,10 @@ class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);
 	void applyGameTick(std::vector<GameObject*> objects);
-	void renderUI(Camera3D &camera);
+	void renderArms(Camera3D &camera);
+
+	void setPosture(float newPosture);
+	float getPosture();
 private:
 
 	enum armState {
