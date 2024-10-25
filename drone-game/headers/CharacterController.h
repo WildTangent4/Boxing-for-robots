@@ -6,8 +6,9 @@
 #include <algorithm>
 #include <iterator>
 #include <raymath.h>
-
-
+#include <math.h>
+#include <list>
+#include <numeric>
 class CharacterController {
 public:
 	CharacterController(GameObject* player, Camera3D* cam);
@@ -45,7 +46,7 @@ private:
 	Texture2D l_rest = LoadTexture("../../../resources/L_rest.png");
 	Texture2D l_punch = LoadTexture("../../../resources/L_punch.png");
 
-	float lastAngle = 0;
+	std::list<float> lastTenMouseXMovements;
 	float lastYangle = 0;
 
 	float moveSpeed = 0.2;

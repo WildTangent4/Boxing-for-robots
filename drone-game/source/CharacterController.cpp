@@ -137,20 +137,31 @@ void CharacterController::renderArms(Camera3D & camera)
 	float scaleY = screenHeight / this->r_block.height;
 
 	//bob arms in Y axis according to the sin of the distance from 0,0
-	float bobDampingStrength = 0.1;
+	float bobDampingStrength = 0.005;//increase this number to decrease damping
 	float bobMovementScaleX = 70;
 	float bobMovementScaleY = 20;
 	float bobMovementFrequency = 0.5;
 	float posY = 1-sin(sqrt(pow(player->pos.x,2)+pow(player->pos.y,2)) * bobMovementFrequency );
 	
-	//broken right now
-	float currentAngle = Vector3Angle(player->pos, GetCameraForward(&camera));
-	//find the angle in degrees from the player is around 
-	//float currentXangle = atan2(camera.target.x-player->pos.x,camera.target.y - player->pos.y);
-	//float camMovementX = currentAngle - this->lastAngle;
-	//this->lastAngle = currentAngle;
-	//printf("%f\n", GetCameraViewMatrix(&camera).m0);
-	float posX = 0;//Lerp(0,camMovementX,bobDampingStrength);
+	float posX;
+	float camMovementX = GetMouseDelta().x;
+
+	//Smooth mouse movements. This is needed because mouse position is reset every tother frame (which causes a flip between positive and negative)
+	if (lastTenMouseXMovements.size() < 10) {
+		this->lastTenMouseXMovements.push_front(camMovementX);
+	}
+	else {
+		this->lastTenMouseXMovements.push_front(camMovementX);
+		this->lastTenMouseXMovements.pop_back();
+	}
+
+	float totalMovement = 0;
+	for (float move : this->lastTenMouseXMovements) {
+		totalMovement += move;
+	}
+	float averageOfMoves = totalMovement / this->lastTenMouseXMovements.size();
+
+	posX = Lerp(0, averageOfMoves, bobDampingStrength);
 	
 
 	Rectangle source = { 0,-screenHeight, screenWidth,-screenHeight };
