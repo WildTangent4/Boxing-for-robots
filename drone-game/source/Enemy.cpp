@@ -216,15 +216,32 @@ Enemy::State Enemy::getReactionToPlayerActions(Player* player)
 	else {
 		return getReactionToOwnActions(player); // if the player is not doing something interesting, follow up on something you are already doing
 	}
-
 	return WAIT;
 }
 
 //perfrom a follow up to whatever the AI did last
 Enemy::State Enemy::getReactionToOwnActions(Player* player)
 {
-	//this is just a getter for a variable that is set on key events like getting stunned
-	return WAIT;
+	switch (this->lastOwnAction)
+	{
+	case WAIT:
+		break;
+	case BLOCK:
+		break;
+	case PUNCH:
+		break;
+	case PUSH:
+		break;
+	case READY_PUNCH:
+		break;
+	case RETREAT:
+		break;
+	case STUNNED:
+		break;
+	default:
+		break;
+	}
+
 }
 
 Enemy::State Enemy::findNextActionRandom(Behaviour type, Player* player) {

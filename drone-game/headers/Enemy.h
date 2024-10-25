@@ -76,6 +76,7 @@ private:
 	Vector3 lastPlayerPos = { 0,0,0 };
 
 	//reactions to events which happen from within this class
+	State lastOwnAction = WAIT;
 	State getReactionToPlayerActions(Player* player);
 	State getReactionToOwnActions(Player* player);
 	std::vector<State> thisGotPunchedResponse = { RETREAT , READY_PUNCH , BLOCK };
