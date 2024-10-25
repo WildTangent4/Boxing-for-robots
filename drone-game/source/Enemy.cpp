@@ -195,10 +195,31 @@ Enemy::State Enemy::getReactionToPlayerActions(Player* player)
 	float currentDistanceFromPlayer =  Vector3Distance (player->obj->pos,this->pos); 
 	bool playerIsApproaching = lastDistanceFromPlayer > currentDistanceFromPlayer;
 	bool playerIsBlocking = player->isBlocking();
-	bool playerIsLowPosture = player->getPosture() > 0.7;
+	bool playerIsLowPosture = player->getPosture() < 0.7;
 	bool playerIsPunching = player->isPunching();
 	
-	//out of the things that the player is doing, select randomly biased by the AI type
+	this->lastPlayerPos = player->obj->pos;
+	// NOTE: if statement is ordered by priority
+
+	if (playerIsPunching) {
+		printf("enemy AI sees that player is punching");
+		return this->playerIsPunchingResponse.at(GetRandomValue(0, this->playerIsPunchingResponse.size() - 1));
+	}
+	else if (playerIsLowPosture) {
+		printf("enemy AI sees that player is low posture");
+		return this->playerIsLowPostureResponse.at(GetRandomValue(0, this->playerIsLowPostureResponse.size() - 1));
+	}
+	else if (playerIsBlocking) {
+		printf("enemy AI sees that player is blocking");
+		return this->playerIsBlockingResponse.at(GetRandomValue(0, this->playerIsBlockingResponse.size() - 1));
+	}
+	else if (playerIsApproaching) {
+		printf("enemy AI sees that player is approaching");
+		return this->playerIsApproachingResponse.at(GetRandomValue(0, this->playerIsApproachingResponse.size() - 1));
+	}
+	else {
+		return getReactionToOwnActions(player); // if the player is not doing something interesting, follow up on something you are already doing
+	}
 
 	return WAIT;
 }
@@ -215,6 +236,8 @@ Enemy::State Enemy::findNextActionRandom(Behaviour type, Player* player) {
 	State followUpAction = WAIT;
 
 	//if not mid action
+
+	//pick which one of these to do based on AI type (aggressive AI doesnt care as much about what the player is doing)
 	reactionAction = getReactionToPlayerActions(player);
 	followUpAction = getReactionToOwnActions(player);
 

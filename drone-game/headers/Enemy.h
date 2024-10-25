@@ -72,7 +72,7 @@ private:
 
 	std::vector<State> playerIsNotInterestingResponse = { PUSH };//player isnt doing anything
 
-
+	float lastDistanceFromPlayer = 0;
 	Vector3 lastPlayerPos = { 0,0,0 };
 
 	//reactions to events which happen from within this class
