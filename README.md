@@ -16,9 +16,10 @@ Currently the game is in a very WIP state, this means that:
 There is no game over screen
   </li>
   <li>
-The main Gameplay loop is not implemented\n
+The main Gameplay loop is not implemented
   </li>
   <li>
 There are some partially complete features that do not work as intended
   </li>
 </ul>
+
